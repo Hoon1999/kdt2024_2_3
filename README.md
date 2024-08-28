@@ -66,10 +66,10 @@ kdt2024_2_3
 └── documents
     └── 계획서_제출
         ├── 프로젝트_계획서.hwp
+        ├── 별첨1_요구사항_정의서.xlsx
         ├── 별첨2_요구사항_명세서.hwpx
         ├── 별첨3_WBS.xlsx
         ├── 별첨4_DFD.png
-        ├── 별첨5_Flow_chart.png
-        └── 별첨1_요구사항_정의서.xlsx
+        └── 별첨5_Flow_chart.png
 ```
 ## 프로젝트 결과물
