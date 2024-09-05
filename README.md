@@ -23,7 +23,7 @@ KDT 자바 스프링 리액트로 완성하는 클라우드 풀스택 과정 - 2
 - 팀장
     - 내용
 - 데이터베이스 설계 및 구현
-    - 내용
+    - ERD 설계 및 DDL 작성
 
 **장서진** <br>
 - 내용
@@ -57,7 +57,7 @@ KDT 자바 스프링 리액트로 완성하는 클라우드 풀스택 과정 - 2
 ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)
 
 ## 데이터베이스 구조
-ERD 사진 첨부
+![ERD](https://github.com/Hoon1999/hoon1999.github.io/blob/main/assets/img/2024-09-05/project_cafe-order/1.png?raw=true)
 
 ## 프로젝트 구조
 ```
