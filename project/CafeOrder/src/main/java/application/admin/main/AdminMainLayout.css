@@ -1,0 +1,27 @@
+#vbMenu {
+	-fx-background-color: #0080FF;
+}
+
+RadioButton {
+	-fx-text-fill: white;
+	
+	-fx-border-width: 0 0 2px 0;
+	-fx-border-color: white;
+}
+
+RadioButton:selected {
+	-fx-background-color: #0070EE;
+	
+	-fx-border-width: 0 5px 2px 5px;
+}
+
+/* 라디오버튼 마커/심볼 제거 */
+.radio-button .radio {
+    -fx-border-width: 0px;
+    -fx-border-radius: 0px;
+    -fx-padding: 0px;
+}
+.radio-button .dot {
+    -fx-background-radius: 0px;
+    -fx-padding: 0px;
+}

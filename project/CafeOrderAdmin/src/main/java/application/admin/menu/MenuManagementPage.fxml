@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1"
+ maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+ prefHeight="400.0" prefWidth="580.0" >
+   <top>
+      <TabPane fx:id="tpTapPane" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+        <tabs>
+          <Tab fx:id="tabProduct" text="상품 품절 관리">
+            <content>
+               <BorderPane fx:id="bpProduct">
+               </BorderPane>
+            </content>
+          </Tab>
+          <Tab fx:id="tabOption" text="옵션 품절 관리">
+            <content>
+               <BorderPane fx:id="bpOption">
+               </BorderPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </top>
+</BorderPane>

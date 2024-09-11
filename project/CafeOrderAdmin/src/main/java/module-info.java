@@ -4,8 +4,10 @@ open module application.admin {
     requires javafx.fxml;
     requires javafx.media;
     requires javafx.graphics;
-    requires javafx.base;
+
     requires org.json;
 
-
+    opens application.admin.start to javafx.fxml;
+    opens application.admin.main to javafx.fxml;
+    exports application.admin;
 }

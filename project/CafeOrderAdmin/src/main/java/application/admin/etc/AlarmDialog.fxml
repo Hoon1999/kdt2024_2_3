@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.BorderPane?>
+
+
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1"
+ maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="250.0" >
+   <center>
+      <TextArea fx:id="txtMsg" editable="false" wrapText="true" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets left="10.0" right="10.0" top="10.0" />
+         </BorderPane.margin>
+      </TextArea>
+   </center>
+   <bottom>
+      <BorderPane BorderPane.alignment="CENTER">
+         <right>
+            <Button fx:id="btnOk" mnemonicParsing="false" text="확인" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets bottom="10.0" right="10.0" top="10.0" />
+               </BorderPane.margin>
+            </Button>
+         </right>
+      </BorderPane>
+   </bottom>
+</BorderPane>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1"
+ maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+ prefHeight="400.0" prefWidth="580.0" >
+   <center>
+      <TabPane fx:id="tpTapPane" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+        <tabs>
+          <Tab fx:id="tabAcceptance" text="접수">
+            <content>
+               <BorderPane fx:id="bpAcceptance">
+               </BorderPane>
+            </content>
+          </Tab>
+          <Tab fx:id="tabComplete" text="완료">
+            <content>
+               <BorderPane fx:id="bpComplete">
+               </BorderPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </center>
+</BorderPane>
