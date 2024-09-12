@@ -39,7 +39,7 @@ public class StartPageController implements Initializable {
 
 		AdminMainPageController.resetMainPageController();
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/application/customer/root.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("/application/customer/main.fxml"));
 			StartPage.getPrimaryStage().setScene(new Scene(root));
 			StartPage.getPrimaryStage().show();
 		} catch (IOException e) {
