@@ -1,4 +1,4 @@
-package cafeorder;
+package Server;
 
 import java.io.*;
 import java.net.*;
@@ -22,6 +22,8 @@ public class OrderClient {
 	String pcs;
 	//최종 오더
 	JSONObject orderrecipe = new JSONObject();
+	//싱글톤
+	private static OrderClient instance;
 	
 	//서버 연결
 	public void connect() throws IOException{
@@ -57,6 +59,7 @@ public class OrderClient {
 	
 	public void setOrdernum(String ordernum) {
 		this.ordernum = ordernum;
+		System.out.println(this.ordernum);
 	}
 	public void setMenu(String menu) {
 		this.menu = menu;
@@ -95,6 +98,12 @@ public class OrderClient {
 		send(json);
 	}
 	
+	public static OrderClient getInstance() {
+		if(instance == null) {
+			instance = new OrderClient();
+		}
+		return instance;
+	}
 	
 	public static void main(String[] args) {
 		//여기서부터
