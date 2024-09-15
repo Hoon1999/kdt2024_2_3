@@ -11,6 +11,7 @@ import application.customer.menu.Product;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -41,8 +42,10 @@ public class MenuSelectController implements Initializable {
                 initProducts();
                 initOptionType();
             }
-            if (gridPane != null)
+            if (gridPane != null) {
+                gridPane.setPadding(new Insets(0));
                 drawProducts();
+            }
             if (optionList != null)
                 drawOptions();
         } catch(Exception e) {
@@ -113,8 +116,6 @@ public class MenuSelectController implements Initializable {
                 GridPane.setColumnIndex(grp, j);
 
                 Button button = new Button();
-                button.setPrefHeight(140.0);
-                button.setPrefWidth(140.0);
                 button.setTextAlignment(TextAlignment.CENTER);
                 button.setOnMouseClicked(event -> {
                     menuClick(event);
