@@ -20,24 +20,9 @@
         <content>
           <AnchorPane prefWidth="407.0">
                <children>
-                  <VBox alignment="TOP_CENTER" layoutX="14.0" layoutY="14.0" prefWidth="377.0">
+                  <VBox fx:id="optionList" alignment="TOP_LEFT" layoutX="14.0" layoutY="14.0" prefWidth="377.0">
                      <children>
-                        <ButtonBar prefHeight="22.0" prefWidth="335.0">
-                           <buttons>
-                              <Label prefHeight="14.0" prefWidth="269.0" text="option1" textAlignment="CENTER" />
-                              <Button onAction="#optionSubBtn" mnemonicParsing="false" text="-" />
-                              <Text fx:id="optionTxt" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" wrappingWidth="80.0" />
-                              <Button onAction="#optionAddBtn" mnemonicParsing="false" text="+" />
-                           </buttons>
-                        </ButtonBar>
-                        <ButtonBar prefHeight="40.0" prefWidth="260.0">
-                          <buttons>
-                              <Label prefHeight="14.0" prefWidth="251.0" text="option2" />
-                              <RadioButton mnemonicParsing="false" text="많게" />
-                              <RadioButton mnemonicParsing="false" text="보통" />
-                              <RadioButton mnemonicParsing="false" text="적게" />
-                          </buttons>
-                        </ButtonBar>
+
                      </children>
                   </VBox>
                </children></AnchorPane>
@@ -60,8 +45,8 @@
                   <Image url="https://placehold.co/150x150.png" />
                </image>
             </ImageView>
-            <Label layoutX="259.0" layoutY="85.0" text="상품 이름" />
-            <Label layoutX="273.0" layoutY="119.0" text="가격" />
+            <Label fx:id="name" layoutX="259.0" layoutY="85.0" text="상품 이름" />
+            <Label fx:id="price" layoutX="259.0" layoutY="119.0" text="가격" />
          </children>
       </AnchorPane>
    </top>
