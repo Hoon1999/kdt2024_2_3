@@ -38,17 +38,13 @@ public class MenuSelectController implements Initializable {
 
         try {
             if (product.isEmpty()) {
-                initProduct();
-                //initCategory();
+                initProducts();
+                initOptionType();
             }
             if (gridPane != null)
-                initProductList();
-            if (optionList != null) {
-                initCategory();
-                printOptionList();
-
-            }
-
+                drawProducts();
+            if (optionList != null)
+                drawOptions();
         } catch(Exception e) {
             e.printStackTrace();
         }
@@ -73,9 +69,9 @@ public class MenuSelectController implements Initializable {
     private Stage mainStage;
     Stage pop;
     private static List<Product> product = new ArrayList<>();
-    private static HBox[] category;
+    private static VBox preparedOptionList = null;
 
-    private void initProduct() {
+    private void initProducts() {
         String sample = "[{\"out_of_stock\":0,\"category_id\":1,\"stock_count\":17,\"price\":2000,\"name\":\"아메리카노\",\"options\":[{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"0\",\"name\":\"Hot\",\"option_type_id\":\"1\"},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"500\",\"name\":\"Ice\",\"option_type_id\":\"1\"},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"0\",\"name\":\"작은 컵\",\"option_type_id\":\"2\"},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"500\",\"name\":\"큰 컵\",\"option_type_id\":\"2\"},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"500\",\"name\":\"샷 추가\",\"option_type_id\":\"3\"},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"0\",\"name\":\"얼음 적게\",\"option_type_id\":\"4\"},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"0\",\"name\":\"얼음 중간\",\"option_type_id\":\"4\"},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"0\",\"name\":\"얼음 많게\",\"option_type_id\":\"4\"}],\"id\":1},{\"out_of_stock\":0,\"category_id\":1,\"stock_count\":17,\"price\":4000,\"name\":\"카페라떼\",\"options\":[{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"0\",\"name\":\"Hot\",\"option_type_id\":\"1\"},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"500\",\"name\":\"Ice\",\"option_type_id\":\"1\"},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"0\",\"name\":\"작은 컵\",\"option_type_id\":\"2\"},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"500\",\"name\":\"큰 컵\",\"option_type_id\":\"2\"},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"500\",\"name\":\"샷 추가\",\"option_type_id\":\"3\"},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"0\",\"name\":\"얼음 적게\",\"option_type_id\":\"4\"},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"0\",\"name\":\"얼음 중간\",\"option_type_id\":\"4\"},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"0\",\"name\":\"얼음 많게\",\"option_type_id\":\"4\"}],\"id\":2},{\"out_of_stock\":0,\"category_id\":1,\"stock_count\":17,\"price\":4500,\"name\":\"카페모카\",\"options\":[{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"0\",\"name\":\"Hot\",\"option_type_id\":\"1\"},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"500\",\"name\":\"Ice\",\"option_type_id\":\"1\"},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"0\",\"name\":\"작은 컵\",\"option_type_id\":\"2\"},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"500\",\"name\":\"큰 컵\",\"option_type_id\":\"2\"},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"500\",\"name\":\"샷 추가\",\"option_type_id\":\"3\"},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"0\",\"name\":\"얼음 적게\",\"option_type_id\":\"4\"},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"0\",\"name\":\"얼음 중간\",\"option_type_id\":\"4\"},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"0\",\"name\":\"얼음 많게\",\"option_type_id\":\"4\"},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"0\",\"name\":\"얼음 적게\",\"option_type_id\":\"4\"},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"0\",\"name\":\"얼음 중간\",\"option_type_id\":\"4\"},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"0\",\"name\":\"얼음 많게\",\"option_type_id\":\"4\"},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"0\",\"name\":\"얼음 적게\",\"option_type_id\":\"4\"},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"0\",\"name\":\"얼음 중간\",\"option_type_id\":\"4\"},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"0\",\"name\":\"얼음 많게\",\"option_type_id\":\"4\"}],\"id\":3},{\"out_of_stock\":0,\"category_id\":1,\"stock_count\":17,\"price\":4500,\"name\":\"녹차라떼\",\"options\":[{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"0\",\"name\":\"Hot\",\"option_type_id\":\"1\"},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"500\",\"name\":\"Ice\",\"option_type_id\":\"1\"},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"0\",\"name\":\"작은 컵\",\"option_type_id\":\"2\"},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"500\",\"name\":\"큰 컵\",\"option_type_id\":\"2\"}],\"id\":4},{\"out_of_stock\":0,\"category_id\":2,\"stock_count\":17,\"price\":2500,\"name\":\"복숭아 아이스티\",\"options\":[{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"0\",\"name\":\"작은 컵\",\"option_type_id\":\"2\"},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"500\",\"name\":\"큰 컵\",\"option_type_id\":\"2\"},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"300\",\"name\":\"펄 추가\",\"option_type_id\":\"3\"},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"300\",\"name\":\"코코아 젤리 추가\",\"option_type_id\":\"3\"}],\"id\":5},{\"out_of_stock\":0,\"category_id\":3,\"stock_count\":17,\"price\":3500,\"name\":\"청포도 에이드\",\"options\":[{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"0\",\"name\":\"작은 컵\",\"option_type_id\":\"2\"},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"500\",\"name\":\"큰 컵\",\"option_type_id\":\"2\"},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"300\",\"name\":\"펄 추가\",\"option_type_id\":\"3\"},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"300\",\"name\":\"코코아 젤리 추가\",\"option_type_id\":\"3\"},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"0\",\"name\":\"얼음 적게\",\"option_type_id\":\"4\"},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"0\",\"name\":\"얼음 중간\",\"option_type_id\":\"4\"},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"0\",\"name\":\"얼음 많게\",\"option_type_id\":\"4\"}],\"id\":6},{\"out_of_stock\":0,\"category_id\":4,\"stock_count\":3,\"price\":5000,\"name\":\"초코 케이크\",\"options\":[],\"id\":7}]\n";
         JSONArray products = new JSONArray(sample);
         for (int i = 0; i < products.length(); i++) {
@@ -104,7 +100,7 @@ public class MenuSelectController implements Initializable {
         }
     }
 
-    private void initProductList() {
+    private void drawProducts() {
         int count = 0;
         for (int i = 0; (double) i < (double) product.size() / 3.0; i++) {
             for (int j = 0; j < 3; j++) {
@@ -150,12 +146,13 @@ public class MenuSelectController implements Initializable {
         }
 
     }
-    private void initCategory() {
+    private void initOptionType() {
         // category db 를 받음
         String sample = "{\"data\": [{\"priority\":1, \"name\": \"Hot/Ice\" , \"id\": 1 }, {\"priority\":2, \"name\": \"사이즈 변경\", \"id\": 2}, {\"priority\":3, \"name\": \"시럽추가\", \"id\": 3}, {\"priority\":4, \"name\": \"얼음변경\", \"id\": 4}]}";
         JSONObject data = new JSONObject(sample);
         JSONArray datas = data.getJSONArray("data");
-        category = new HBox[datas.length() + 4];
+        HBox[] category = new HBox[datas.length() + 4];
+        preparedOptionList= new VBox();
         for(int i = 0 ; i < category.length; i++) {
             category[i] = new HBox();
         }
@@ -164,14 +161,13 @@ public class MenuSelectController implements Initializable {
             category[data.getInt("priority")].setId("hbox" + data.getInt("id"));
 
             Label label = new Label(data.getString("name"));
-            //category[data.getInt("priority")].getChildren().addAll(label);
-            optionList.getChildren().addAll(label);
-            optionList.getChildren().addAll(category[data.getInt("priority")]);
+            preparedOptionList.getChildren().addAll(label);
+            preparedOptionList.getChildren().addAll(category[data.getInt("priority")]);
         }
 
     }
-    private void printOptionList() {
-//        optionList.getChildren().addAll(category);
+    private void drawOptions() {
+        optionList.getChildren().addAll(preparedOptionList.getChildren()) ; // 미리 준비한 옵션 리스트를 팝업 창의 옵션 목록에 삽입한다.
         List<Option> opts = product.get(Integer.parseInt(btn.getId().substring(7))).getOptions();
         for (int i = 0; i < opts.size(); i++) {
             Option o = opts.get(i);
@@ -199,9 +195,6 @@ public class MenuSelectController implements Initializable {
         btn = (Button) event.getTarget();
         String name = ((Label) btn.getParent().lookup("#name")).getText();
         String price = ((Label) btn.getParent().lookup("#price")).getText();
-//        System.out.println(btn.getParent());
-//
-//        System.out.println(btn.getParent().lookup("#name"));
         mainStage = (Stage) btn.getScene().getWindow().getScene().getWindow();
 
         pop = new Stage(StageStyle.DECORATED);
@@ -262,9 +255,6 @@ public class MenuSelectController implements Initializable {
     }
     public void setPop(Stage pop) {
         this.pop = pop;
-
-        if (optionList != null)
-            printOptionList();
     }
 
     public void setName(String str) {
