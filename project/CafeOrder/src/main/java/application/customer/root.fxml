@@ -8,17 +8,15 @@
 
 <BorderPane fx:id="bp" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.customer.RootController">
    <left>
-      <VBox prefHeight="400.0" prefWidth="300.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="400.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Button minHeight="-Infinity" mnemonicParsing="false" onMouseClicked="#recommendClick" prefHeight="50.0" prefWidth="300.0" text="추천" textAlignment="CENTER" wrapText="true" />
-            
-            <!-- 
-            <Button minHeight="-Infinity" mnemonicParsing="false" onMouseClicked="#previousOrderClick" prefHeight="50.0" prefWidth="100.0" text="이전에 주문한 상품" textAlignment="CENTER" wrapText="true" />
-            <Button minHeight="-Infinity" mnemonicParsing="false" onMouseClicked="#coffeeClick" prefHeight="50.0" prefWidth="100.0" text="커피" textAlignment="CENTER" wrapText="true" />
-            <Button minHeight="-Infinity" mnemonicParsing="false" onMouseClicked="#nonCoffeeClick" prefHeight="50.0" prefWidth="100.0" text="논커피" textAlignment="CENTER" wrapText="true" />
-            <Button minHeight="-Infinity" mnemonicParsing="false" onMouseClicked="#bakeryClick" prefHeight="50.0" prefWidth="100.0" text="베이커리" textAlignment="CENTER" wrapText="true" />
-            <Button minHeight="-Infinity" mnemonicParsing="false" onMouseClicked="#merchandiseClick" prefHeight="50.0" prefWidth="100.0" text="MD" textAlignment="CENTER" wrapText="true" />
-          -->
+            <Button minHeight="-Infinity" maxWidth="Infinity" prefHeight="70.0" VBox.vgrow="ALWAYS" mnemonicParsing="false" onMouseClicked="#recommendClick" text="추천" textAlignment="CENTER" wrapText="true" />
+            <Button minHeight="-Infinity" maxWidth="Infinity" prefHeight="70.0" VBox.vgrow="ALWAYS" mnemonicParsing="false" onMouseClicked="#previousOrderClick" text="이전에 주문한 상품" textAlignment="CENTER" wrapText="true" />
+            <Button minHeight="-Infinity" maxWidth="Infinity" prefHeight="70.0" VBox.vgrow="ALWAYS" mnemonicParsing="false" onMouseClicked="#coffeeClick" text="커피" textAlignment="CENTER" wrapText="true" />
+            <Button minHeight="-Infinity" maxWidth="Infinity" prefHeight="70.0" VBox.vgrow="ALWAYS" mnemonicParsing="false" onMouseClicked="#nonCoffeeClick" text="논커피" textAlignment="CENTER" wrapText="true" />
+            <Button minHeight="-Infinity" maxWidth="Infinity" prefHeight="70.0" VBox.vgrow="ALWAYS" mnemonicParsing="false" onMouseClicked="#bakeryClick" text="베이커리" textAlignment="CENTER" wrapText="true" />
+            <Button minHeight="-Infinity" maxWidth="Infinity" prefHeight="70.0" VBox.vgrow="ALWAYS" mnemonicParsing="false" onMouseClicked="#merchandiseClick" text="MD" textAlignment="CENTER" wrapText="true" />
+
          </children>
       </VBox>
    </left>
@@ -37,10 +35,8 @@
       </HBox>
    </top>
    <right>
-      <VBox>
+      <VBox prefWidth="300.0">
          <children>
-            <Button mnemonicParsing="false" text="메인화면" />
-            <Button mnemonicParsing="false" text="장바구니" />
          </children>
       </VBox>
    </right>
