@@ -1,4 +1,4 @@
-package application.customer;
+package application.customer.main;
 
 import application.admin.main.AdminMainPageController;
 import application.admin.start.StartPage;
@@ -28,7 +28,7 @@ public class MainPageController implements Initializable {
     private void gotoPage() {
         AdminMainPageController.resetMainPageController();
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/application/customer/orderPage.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/application/customer/order/orderPage.fxml"));
 
             Screen screen = Screen.getPrimary(); // 현재 화면 정보를 가져온다
             //double width = screen.getVisualBounds().getWidth(); // 화면의 너비를 가져온다

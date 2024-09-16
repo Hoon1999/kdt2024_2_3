@@ -1,4 +1,4 @@
-package application.customer;
+package application.customer.order;
 
 import java.io.IOException;
 import java.net.URL;

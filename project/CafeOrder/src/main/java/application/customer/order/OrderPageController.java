@@ -1,4 +1,4 @@
-package application.customer;
+package application.customer.order;
 
 import java.io.IOException;
 import java.net.URL;
@@ -22,12 +22,12 @@ public class OrderPageController implements Initializable {
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		//TO DO
-		loadPage("recommend");
+		loadPage("productList");
 	}
 
 	@FXML
 	private void recommendClick(MouseEvent event) {
-		loadPage("recommend"); // 추천 탭 로드
+		loadPage("productList"); // 추천 탭 로드
 	}
 
 	@FXML
@@ -57,7 +57,7 @@ public class OrderPageController implements Initializable {
 
 	private void loadPage(String page) {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource(page + ".fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource( "/application/customer/order/" + page + ".fxml"));
 			bp.setCenter(root);
 		} catch (IOException e) {
 			Logger.getLogger(OrderPageController.class.getName()).log(Level.SEVERE, null, e);

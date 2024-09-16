@@ -10,7 +10,7 @@ public class OrderMain extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-			Parent root = (Parent)FXMLLoader.load(getClass().getResource("orderPage.fxml"));
+			Parent root = (Parent)FXMLLoader.load(getClass().getResource("order/orderPage.fxml"));
 			Scene scene = new Scene(root);
 
 			primaryStage.setTitle("OrderMain");
