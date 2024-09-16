@@ -40,7 +40,7 @@ public class StartPageController implements Initializable {
 
 		AdminMainPageController.resetMainPageController();
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/application/customer/main.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("/application/customer/mainPage.fxml"));
 
 			Screen screen = Screen.getPrimary(); // 현재 화면 정보를 가져온다. 왜 가져오나요? - 전체화면으로 출력하기 위해서
 			double width = screen.getVisualBounds().getWidth(); // 화면의 너비를 가져온다

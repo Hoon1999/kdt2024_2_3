@@ -13,7 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 
-public class RootController implements Initializable {
+public class OrderPageController implements Initializable {
 
 	@FXML
 	private BorderPane bp;
@@ -60,7 +60,7 @@ public class RootController implements Initializable {
 			Parent root = FXMLLoader.load(getClass().getResource(page + ".fxml"));
 			bp.setCenter(root);
 		} catch (IOException e) {
-			Logger.getLogger(RootController.class.getName()).log(Level.SEVERE, null, e);
+			Logger.getLogger(OrderPageController.class.getName()).log(Level.SEVERE, null, e);
 
 		}
 	}

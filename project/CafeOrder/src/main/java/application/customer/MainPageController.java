@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MainController implements Initializable {
+public class MainPageController implements Initializable {
     @FXML Button memberLoginBtn;
     @FXML Button nonMemberOrderBtn;
     @Override
@@ -28,7 +28,7 @@ public class MainController implements Initializable {
     private void gotoPage() {
         AdminMainPageController.resetMainPageController();
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/application/customer/root.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/application/customer/orderPage.fxml"));
 
             Screen screen = Screen.getPrimary(); // 현재 화면 정보를 가져온다
             //double width = screen.getVisualBounds().getWidth(); // 화면의 너비를 가져온다

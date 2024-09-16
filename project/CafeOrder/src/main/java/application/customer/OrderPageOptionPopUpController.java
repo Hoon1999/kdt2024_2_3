@@ -20,7 +20,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -32,7 +31,7 @@ import javafx.stage.StageStyle;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class MenuSelectController implements Initializable {
+public class OrderPageOptionPopUpController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -207,7 +206,7 @@ public class MenuSelectController implements Initializable {
 
         try {
             //새로운 스테이지에 레이아웃 불러오기
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("optionSelect.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("optionPopup.fxml"));
             Parent root = loader.load();
 
             //씬에 추가
@@ -216,7 +215,7 @@ public class MenuSelectController implements Initializable {
             pop.setResizable(false); //팝업창 크기변경
 
             //보여주기
-            MenuSelectController controller = loader.getController();
+            OrderPageOptionPopUpController controller = loader.getController();
             //controller.setPop(pop);
             controller.setName(name);
             controller.setPrice(price);

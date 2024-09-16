@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane prefHeight="501.0" prefWidth="428.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.customer.MenuSelectController">
+<BorderPane prefHeight="501.0" prefWidth="428.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.customer.OrderPageOptionPopUpController">
    <center>
       <ScrollPane prefHeight="312.0" prefWidth="428.0">
         <content>
