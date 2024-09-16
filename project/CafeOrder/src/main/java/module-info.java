@@ -1,4 +1,4 @@
-open module application.admin {
+open module application {
     requires java.se;
     requires javafx.controls;
     requires javafx.fxml;
