@@ -83,6 +83,7 @@ public class OrderPageOptionPopUpController implements Initializable {
             for (int j = 0; j < options.length(); j++) {
                 JSONObject optionData = (JSONObject) options.get(j);
                 Option option = new Option(
+                        optionData.getInt("id"),
                         optionData.getString("name"),
                         optionData.getInt("price"),
                         optionData.getInt("stock_count"),
