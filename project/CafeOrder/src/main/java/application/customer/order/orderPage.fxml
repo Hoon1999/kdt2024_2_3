@@ -6,6 +6,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.Group?>
 <BorderPane fx:id="bp" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.customer.order.OrderPageController">
    <left>
       <VBox prefHeight="400.0" prefWidth="200.0" BorderPane.alignment="CENTER">
@@ -35,7 +37,7 @@
       </HBox>
    </top>
    <right>
-      <VBox prefWidth="300.0">
+      <VBox fx:id="cart" prefWidth="300.0">
          <children>
          </children>
       </VBox>
