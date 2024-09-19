@@ -9,7 +9,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.stage.Modality;
 import javafx.stage.Screen;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
@@ -22,6 +25,29 @@ public class MainPageController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //ToDo
     }
+    @FXML
+    private void loginPopUp() {
+        try{
+            Parent root = FXMLLoader.load(getClass().getResource("/application/customer/login/login.fxml"));
+
+            Stage mainStage = (Stage) memberLoginBtn.getScene().getWindow();
+            Stage pop = new Stage(StageStyle.UNDECORATED);// 팝업 창 타이틀바 제거
+            pop.initModality(Modality.WINDOW_MODAL);
+            pop.initOwner(mainStage);
+            pop.initStyle(StageStyle.UNDECORATED);
+            pop.setWidth(mainStage.getWidth() * 0.6); // 팝업 창 width 설정
+            pop.setHeight(mainStage.getHeight() * 0.8); // 팝업 창 height 설정
+
+            Scene sc = new Scene(root);
+            pop.setScene(sc);
+            pop.setResizable(false); //팝업창 크기변경
+            pop.show();
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     /**
      * 상품 선택 페이지로 이동합니다.*/
     @FXML

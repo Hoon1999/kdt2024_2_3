@@ -6,6 +6,7 @@ import application.customer.menu.Cart;
 import application.customer.menu.MemberInfo;
 import application.customer.menu.Page;
 import application.customer.order.CartController;
+import application.customer.order.OrderClient;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -152,7 +153,13 @@ public class PaymentPageController  implements Initializable {
         //ToDo
         // 서버에 처리 커맨드와  orderReceipt 전송
         System.out.println("주문서: "+ orderReceipt.toString());
-
+        try{
+            OrderClient orderClient = OrderClient.getInstance();
+            orderClient.sendOrder(orderReceipt);
+        } catch (IOException e) {
+            System.out.println("서버 연결 오류 : " + e);
+            e.printStackTrace();
+        }
         // 메인 화면으로 복귀
         loadPage(Page.MAIN_PAGE);
     }

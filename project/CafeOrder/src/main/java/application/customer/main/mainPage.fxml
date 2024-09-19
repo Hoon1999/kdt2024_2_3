@@ -12,7 +12,7 @@
    <center>
       <VBox alignment="CENTER" prefHeight="491.0" prefWidth="400.0" spacing="20.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="memberLoginBtn" mnemonicParsing="false" onAction="#gotoPage" text="로그인" />
+            <Button fx:id="memberLoginBtn" mnemonicParsing="false" onAction="#loginPopUp" text="로그인" />
             <Button fx:id="nonMemberOrderBtn" mnemonicParsing="false" onAction="#gotoPage" text="비회원 주문" />
          </children>
       </VBox>
