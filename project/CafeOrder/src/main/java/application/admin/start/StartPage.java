@@ -2,6 +2,7 @@ package application.admin.start;
 
 import java.io.IOException;
 
+import application.customer.order.OrderClient;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -19,8 +20,17 @@ public class StartPage extends Application {
 		}
 		return primaryStage;
 	}
-	
+
 	public static void main(String[] args) {
+		try {
+			OrderClient orderClient = OrderClient.getInstance();
+			orderClient.connect();
+			orderClient.makenewid(); // 키오스크 아이디 할당
+		} catch (IOException e) {
+			System.out.println("서버 접속 실패: " +e.getMessage());
+			e.printStackTrace();
+		}
+
 		launch(args);
 	}
 	
