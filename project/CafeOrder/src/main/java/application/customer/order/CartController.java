@@ -84,4 +84,7 @@ public class CartController implements Initializable {
         }
         return sum;
     }
+    public static List<Cart> getCartList() {
+        return cart;
+    }
 }
