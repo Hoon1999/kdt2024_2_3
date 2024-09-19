@@ -6,6 +6,8 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import application.admin.main.AdminMainPageController;
+import application.admin.start.StartPage;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -13,9 +15,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class OrderPageController implements Initializable {
@@ -85,6 +89,28 @@ public class OrderPageController implements Initializable {
 //		bp.setRight()
 		bp.requestLayout();
 		System.out.println("cart re draw 호출됨");
+	}
+	public void goPaymentPage() {
+		if(CartController.isCartEmpty()) {
+			//ToDo
+			// 카트가 비어있습니다. 출력
+			return ;
+		}
+		AdminMainPageController.resetMainPageController();
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource("/application/customer/payment/paymentPage.fxml"));
+
+			Screen screen = Screen.getPrimary(); // 현재 화면 정보를 가져온다
+			StartPage.getPrimaryStage().setX(0); // 좌측 상단에서부터 프로그램을 출력한다. 이거 설정 안하면 부모 창 기준으로 위치가 결정된다.
+			StartPage.getPrimaryStage().setY(0);
+
+			StartPage.getPrimaryStage().setScene(new Scene(root, 1080, 1920)); // FHD(1920, 1080) 세로로 돌리면 1080, 1920 pixel 이다.
+			StartPage.getPrimaryStage().show();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
 	}
 }
 

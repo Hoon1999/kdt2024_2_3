@@ -70,4 +70,14 @@ public class CartController implements Initializable {
     public static void addCart(Cart product) {
         cart.add(product);
     }
+    public static boolean isCartEmpty() {
+        return cart.isEmpty();
+    }
+    public static int getSumPrice() {
+        int sum = 0;
+        for(Cart prod: cart) {
+            sum += prod.price;
+        }
+        return sum;
+    }
 }

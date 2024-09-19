@@ -32,7 +32,7 @@
       <HBox alignment="TOP_RIGHT" prefHeight="35.0" prefWidth="580.0" BorderPane.alignment="CENTER">
          <children>
             <Button mnemonicParsing="false" text="메인화면" />
-            <Button mnemonicParsing="false" text="장바구니" />
+            <Button mnemonicParsing="false" text="결제하기" onAction="#goPaymentPage" />
          </children>
       </HBox>
    </top>
