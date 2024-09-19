@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 
 import application.admin.main.AdminMainPageController;
 import application.admin.start.StartPage;
+import application.customer.menu.Page;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -35,12 +36,6 @@ public class OrderPageController implements Initializable {
 		//TO DO
 		loadPage("productList");
 		if(bp != null) {
-			bp.rightProperty().addListener(new ChangeListener<Node>() {
-				@Override
-				public void changed(ObservableValue<? extends Node> observableValue, Node oldValue, Node newValue) {
-					cartReDraw();
-				}
-			});
 		}
 	}
 
@@ -78,17 +73,18 @@ public class OrderPageController implements Initializable {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource( "/application/customer/order/" + page + ".fxml"));
 			bp.setCenter(root);
-			bp.setRight(root = FXMLLoader.load(getClass().getResource("/application/customer/order/cart.fxml")));
+			cartReDraw();
 
 		} catch (IOException e) {
 			Logger.getLogger(OrderPageController.class.getName()).log(Level.SEVERE, null, e);
 
 		}
 	}
-	public void cartReDraw() {
-//		bp.setRight()
-		bp.requestLayout();
-		System.out.println("cart re draw 호출됨");
+	public void cartReDraw() throws IOException {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/customer/order/cart.fxml"));
+		Parent root = loader.load();
+		((CartController)loader.getController()).drawCart(Page.ORDER_PAGE);
+		bp.setRight(root);
 	}
 	public void goPaymentPage() {
 		if(CartController.isCartEmpty()) {

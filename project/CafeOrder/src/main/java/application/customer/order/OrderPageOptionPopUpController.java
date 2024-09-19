@@ -6,6 +6,7 @@ import java.util.*;
 
 import application.customer.menu.Cart;
 import application.customer.menu.Option;
+import application.customer.menu.Page;
 import application.customer.menu.Product;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -295,17 +296,12 @@ public class OrderPageOptionPopUpController implements Initializable {
 
         pop = (Stage) closeBtn.getScene().getWindow();
         System.out.println("option - main stage: " + mainStage);
-//        FXMLLoader loader = (FXMLLoader) mainStage.getScene().getUserData();
-//        OrderPageController opc = (OrderPageController) loader.getController();
-//        opc.cartReDraw();
-//        OrderPageController.opc.cartReDraw();
         BorderPane bp = (BorderPane) mainStage.getScene().getRoot();
-//        VBox vb =(VBox) bp.lookup("#cart");
-        // cart 를 노드로 만들어서 추가
-        //vb.getChildren().add(cart);
-//        bp.requestLayout();
         CartController.addCart(cart);
-        Parent root = FXMLLoader.load(getClass().getResource( "/application/customer/order/cart.fxml"));
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/customer/order/cart.fxml"));
+        Parent root = loader.load();
+        ((CartController)loader.getController()).drawCart(Page.ORDER_PAGE);
         bp.setRight(root);
         pop.close(); //팝업창 닫기
     }

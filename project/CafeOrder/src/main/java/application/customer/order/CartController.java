@@ -1,6 +1,7 @@
 package application.customer.order;
 
 import application.customer.menu.Cart;
+import application.customer.menu.Page;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
@@ -22,10 +23,13 @@ public class CartController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         if(!cart.isEmpty()) {
-            drawCart();
+//            drawCart();
         }
     }
-    private void drawCart() {
+    public void drawCart(Page page) {
+        if(cart.isEmpty()) {
+            return;
+        }
         for(Cart prod : cart) {
             HBox hbox = new HBox();
             hbox.setPrefWidth(300.0);
@@ -41,25 +45,25 @@ public class CartController implements Initializable {
             HBox hbox2 = new HBox();
             HBox.setHgrow(hbox2, Priority.ALWAYS);
             hbox2.setAlignment(Pos.BOTTOM_RIGHT);
-
-            Button btnMinus = new Button("-");
-            Button btnPlus = new Button("+");
-            Label count = new Label(" " + prod.count + " ");
             Label price = new Label("가격: " + prod.price * prod.count);
-            btnMinus.setOnMouseClicked(evnet -> {
-                if (prod.count > 1) { // count가 0보다 클 때만 감소
-                    prod.count--;  // count 감소
+            if(page == Page.ORDER_PAGE) {
+                Button btnMinus = new Button("-");
+                Button btnPlus = new Button("+");
+                Label count = new Label(" " + prod.count + " ");
+                btnMinus.setOnMouseClicked(evnet -> {
+                    if (prod.count > 1) { // count가 0보다 클 때만 감소
+                        prod.count--;  // count 감소
+                        count.setText(" " + prod.count + " ");  // Label 업데이트
+                        price.setText("가격: " + prod.price * prod.count);
+                    }
+                });
+                btnPlus.setOnAction(e -> {
+                    prod.count++;  // count 증가
                     count.setText(" " + prod.count + " ");  // Label 업데이트
                     price.setText("가격: " + prod.price * prod.count);
-                }
-            });
-            btnPlus.setOnAction(e -> {
-                prod.count++;  // count 증가
-                count.setText(" " + prod.count + " ");  // Label 업데이트
-                price.setText("가격: " + prod.price * prod.count);
-            });
-            hbox2.getChildren().addAll(btnMinus, count, btnPlus);
-
+                });
+                hbox2.getChildren().addAll(btnMinus, count, btnPlus);
+            }
 
             vbox.getChildren().addAll(price);
             this.vbox.getChildren().addAll(hbox);
