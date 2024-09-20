@@ -40,10 +40,6 @@ public class OrderPageOptionPopUpController implements Initializable {
                 initProducts();
                 initOptionType();
             }
-            if (gridPane != null) {
-                gridPane.setPadding(new Insets(0));
-                drawProducts();
-            }
             if (optionList != null)
                 drawOptions();
         } catch(Exception e) {
@@ -75,11 +71,14 @@ public class OrderPageOptionPopUpController implements Initializable {
     private Map<Integer, ToggleGroup> toggleGroupMap = new HashMap<>();
     private Cart cart;
     private Map<Integer, Cart> selectedOption= new HashMap<>();
+    private int selectedCategoryId = 1;
+    private int[] data;
 
     private void initProducts() {
         OrderClient orderClient = OrderClient.getInstance();
         JSONObject data = orderClient.callmenu();
 //        String sample = "[{\"out_of_stock\":0,\"category_id\":1,\"stock_count\":17,\"price\":2000,\"name\":\"아메리카노\",\"options\":[{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"0\",\"name\":\"Hot\",\"option_type_id\":\"1\",\"id\":1},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"500\",\"name\":\"Ice\",\"option_type_id\":\"1\",\"id\":2},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"0\",\"name\":\"작은 컵\",\"option_type_id\":\"2\",\"id\":3},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"500\",\"name\":\"큰 컵\",\"option_type_id\":\"2\",\"id\":4},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"500\",\"name\":\"샷 추가\",\"option_type_id\":\"3\",\"id\":5},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"0\",\"name\":\"얼음 적게\",\"option_type_id\":\"4\",\"id\":8},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"0\",\"name\":\"얼음 중간\",\"option_type_id\":\"4\",\"id\":9},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"0\",\"name\":\"얼음 많게\",\"option_type_id\":\"4\",\"id\":10}],\"id\":1},{\"out_of_stock\":0,\"category_id\":1,\"stock_count\":17,\"price\":4000,\"name\":\"카페라떼\",\"options\":[{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"0\",\"name\":\"Hot\",\"option_type_id\":\"1\",\"id\":1},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"500\",\"name\":\"Ice\",\"option_type_id\":\"1\",\"id\":2},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"0\",\"name\":\"작은 컵\",\"option_type_id\":\"2\",\"id\":3},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"500\",\"name\":\"큰 컵\",\"option_type_id\":\"2\",\"id\":4},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"500\",\"name\":\"샷 추가\",\"option_type_id\":\"3\",\"id\":5},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"0\",\"name\":\"얼음 적게\",\"option_type_id\":\"4\",\"id\":8},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"0\",\"name\":\"얼음 중간\",\"option_type_id\":\"4\",\"id\":9},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"0\",\"name\":\"얼음 많게\",\"option_type_id\":\"4\",\"id\":10}],\"id\":2},{\"out_of_stock\":0,\"category_id\":1,\"stock_count\":17,\"price\":4500,\"name\":\"카페모카\",\"options\":[{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"0\",\"name\":\"Hot\",\"option_type_id\":\"1\",\"id\":1},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"500\",\"name\":\"Ice\",\"option_type_id\":\"1\",\"id\":2},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"0\",\"name\":\"작은 컵\",\"option_type_id\":\"2\",\"id\":3},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"500\",\"name\":\"큰 컵\",\"option_type_id\":\"2\",\"id\":4},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"500\",\"name\":\"샷 추가\",\"option_type_id\":\"3\",\"id\":5},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"0\",\"name\":\"얼음 적게\",\"option_type_id\":\"4\",\"id\":8},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"0\",\"name\":\"얼음 중간\",\"option_type_id\":\"4\",\"id\":9},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"0\",\"name\":\"얼음 많게\",\"option_type_id\":\"4\",\"id\":10},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"0\",\"name\":\"얼음 적게\",\"option_type_id\":\"4\",\"id\":8},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"0\",\"name\":\"얼음 중간\",\"option_type_id\":\"4\",\"id\":9},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"0\",\"name\":\"얼음 많게\",\"option_type_id\":\"4\",\"id\":10},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"0\",\"name\":\"얼음 적게\",\"option_type_id\":\"4\",\"id\":8},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"0\",\"name\":\"얼음 중간\",\"option_type_id\":\"4\",\"id\":9},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"0\",\"name\":\"얼음 많게\",\"option_type_id\":\"4\",\"id\":10}],\"id\":3},{\"out_of_stock\":0,\"category_id\":1,\"stock_count\":17,\"price\":4500,\"name\":\"녹차라떼\",\"options\":[{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"0\",\"name\":\"Hot\",\"option_type_id\":\"1\",\"id\":1},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"500\",\"name\":\"Ice\",\"option_type_id\":\"1\",\"id\":2},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"0\",\"name\":\"작은 컵\",\"option_type_id\":\"2\",\"id\":3},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"500\",\"name\":\"큰 컵\",\"option_type_id\":\"2\",\"id\":4}],\"id\":4},{\"out_of_stock\":0,\"category_id\":2,\"stock_count\":17,\"price\":2500,\"name\":\"복숭아 아이스티\",\"options\":[{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"0\",\"name\":\"작은 컵\",\"option_type_id\":\"2\",\"id\":3},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"500\",\"name\":\"큰 컵\",\"option_type_id\":\"2\",\"id\":4},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"300\",\"name\":\"펄 추가\",\"option_type_id\":\"3\",\"id\":6},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"300\",\"name\":\"코코아 젤리 추가\",\"option_type_id\":\"3\",\"id\":7}],\"id\":5},{\"out_of_stock\":0,\"category_id\":3,\"stock_count\":17,\"price\":3500,\"name\":\"청포도 에이드\",\"options\":[{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"0\",\"name\":\"작은 컵\",\"option_type_id\":\"2\",\"id\":3},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"500\",\"name\":\"큰 컵\",\"option_type_id\":\"2\",\"id\":4},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"300\",\"name\":\"펄 추가\",\"option_type_id\":\"3\",\"id\":6},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"300\",\"name\":\"코코아 젤리 추가\",\"option_type_id\":\"3\",\"id\":7},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"0\",\"name\":\"얼음 적게\",\"option_type_id\":\"4\",\"id\":8},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"0\",\"name\":\"얼음 중간\",\"option_type_id\":\"4\",\"id\":9},{\"out_of_stock\":\"0\",\"stock_count\":\"9999\",\"price\":\"0\",\"name\":\"얼음 많게\",\"option_type_id\":\"4\",\"id\":10}],\"id\":6},{\"out_of_stock\":0,\"category_id\":4,\"stock_count\":3,\"price\":5000,\"name\":\"초코 케이크\",\"options\":[],\"id\":7}]";
+//        JSONArray products = new JSONArray(sample);
         JSONArray products = data.getJSONArray("data"); // data 에서 product list 를 꺼냅니다.
         for (int i = 0; i < products.length(); i++) {
             JSONObject pd = (JSONObject) products.get(i);
@@ -108,50 +107,62 @@ public class OrderPageOptionPopUpController implements Initializable {
         }
     }
 
+    private void drawProduct(int r, int c, int count, Product p) {
+        StackPane sp = new StackPane();
+        GridPane.setRowIndex(sp, r);
+        GridPane.setColumnIndex(sp, c);
+
+        Button button = new Button();
+        button.setTextAlignment(TextAlignment.CENTER);
+        button.setOnMouseClicked(event -> {
+            menuClick(event);
+        });
+        button.setId("product" + count);
+
+        ImageView img = new ImageView();
+        img.setImage(new Image("https://placehold.co/150x150.png"));
+        button.setGraphic(img);
+
+        Label name = new Label(p.getName());
+        name.setId("name");
+        name.setMouseTransparent(true);
+        Label price = new Label(Integer.toString(p.getPrice()));
+        price.setId("price");
+        price.setMouseTransparent(true);
+
+        sp.getChildren().addAll(button, name, price);
+        gridPane.getChildren().addAll(sp);
+    }
     private void drawProducts() {
-        int count = 0;
-        for (int i = 0; (double) i < (double) product.size() / 3.0; i++) {
-            for (int j = 0; j < 3; j++) {
-                if (count >= product.size())
-                    break;
+        int count = 0; int temp = 0;
+        int colIdx = 3;
+        int r = 0, c = 0;
+        while(count < product.size()){
                 Product p = product.get(count);
+                if(-1 == selectedCategoryId) {
+                    if(temp < this.data.length && p.getId() == this.data[temp]) {
+                        // break double if
+                        temp++;
 
-                StackPane sp = new StackPane();
-                GridPane.setRowIndex(sp, i);
-                GridPane.setColumnIndex(sp, j);
+                    } else {
+                        count++;
+                        continue;
+                    }
+                }
+                else if(p.getCategoryId() != selectedCategoryId) {
+                    count++;
+                    continue;
+                }
 
-                Button button = new Button();
-                button.setTextAlignment(TextAlignment.CENTER);
-                button.setOnMouseClicked(event -> {
-                    menuClick(event);
-                });
-                button.setId("product" + count);
-
-                ImageView img = new ImageView();
-                img.setImage(new Image("https://placehold.co/150x150.png"));
-                button.setGraphic(img);
-
-                Label name = new Label(p.getName());
-                name.setLayoutX(10);
-                name.setLayoutY(90);
-                name.setPrefHeight(20.0);
-                name.setPrefWidth(100.0);
-                name.setId("name");
-                name.setMouseTransparent(true);
-                Label price = new Label(Integer.toString(p.getPrice()));
-                price.setLayoutX(10);
-                price.setLayoutY(110);
-                price.setPrefHeight(20.0);
-                price.setPrefWidth(100.0);
-                price.setId("price");
-                price.setMouseTransparent(true);
-
-                sp.getChildren().addAll(button, name, price);
-                gridPane.getChildren().addAll(sp);
+                if(c >= colIdx) {
+                    c = 0;
+                    r++;
+                }
+                drawProduct(r, c++, count, p);
 
                 count++;
             }
-        }
+
 
     }
     private void initOptionType() {
@@ -214,7 +225,6 @@ public class OrderPageOptionPopUpController implements Initializable {
                         }
                     } else {
                         // 선택 해제될 때 발생하는 이벤트
-                        System.out.println("Button Deselected");
                         if(selectedOption.get(o.getId()) != null) {
                             selectedOption.remove(o.getId()); // remove. Key : true
                         }
@@ -299,7 +309,6 @@ public class OrderPageOptionPopUpController implements Initializable {
         cart.price = sum;
 
         pop = (Stage) closeBtn.getScene().getWindow();
-        System.out.println("option - main stage: " + mainStage);
         BorderPane bp = (BorderPane) mainStage.getScene().getRoot();
         CartController.addCart(cart);
 
@@ -338,5 +347,26 @@ public class OrderPageOptionPopUpController implements Initializable {
     }
     public void setMainStage(Stage mainStage) {
         this.mainStage = mainStage;
+    }
+    public void setSelectedCategoryId(int id) {
+        this.selectedCategoryId = id;
+        if(id == -1) {
+            // 인기 상품 탭
+            OrderClient orderClient = OrderClient.getInstance();
+            JSONObject data = orderClient.getPopularProduct();
+            JSONArray products = data.getJSONArray("data");
+            this.data = new int[ products.length()];
+            for(int i = 0; i < products.length(); i++) {
+                JSONObject obj = (JSONObject) products.get(i);
+                this.data[i] = obj.getInt("id");
+            }
+        }
+        else if(id == -2) {
+            // 이전 구매 상품 탭
+        }
+        if (gridPane != null) {
+            gridPane.setPadding(new Insets(0));
+            drawProducts();
+        }
     }
 }

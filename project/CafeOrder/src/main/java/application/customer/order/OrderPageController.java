@@ -17,61 +17,70 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class OrderPageController implements Initializable {
 
 	@FXML
 	private BorderPane bp;
 	@FXML
+	private VBox vbox;
+	@FXML
 	private VBox cart;
 
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		//TO DO
-		loadPage("productList");
-		if(bp != null) {
+		//TODO
+		drawButtons();
+		loadPage(-1);
+	}
+	@FXML
+	private void recommendClick() {
+		loadPage(-1);
+	}
+	@FXML
+	private void previousOrderClick() {
+		loadPage(-2);
+	}
+	private void drawButtons() {
+		// 카테고리 목록을 요청합니다.
+		// 가져온 카테고리를 출력합니다.
+		OrderClient orderClient = OrderClient.getInstance();
+		JSONObject data = orderClient.getCategories();
+		JSONArray categories = data.getJSONArray("data");
+		for(int i = 0; i < categories.length(); i++) {
+			JSONObject categoryObj =(JSONObject) categories.get(i);
+			Button button = new Button();
+			button.setMaxWidth(Double.MAX_VALUE);
+			button.setPrefHeight(70.0);
+			VBox.setVgrow(button, Priority.ALWAYS);
+			button.setMnemonicParsing(false);
+			button.setTextAlignment(TextAlignment.CENTER);
+			button.setWrapText(true);
+			button.setText(categoryObj.getString("name"));
+			button.setOnMouseClicked(event -> {loadPage(categoryObj.getInt("id"));});
+
+			vbox.getChildren().addAll(button);
 		}
 	}
-
-	@FXML
-	private void recommendClick(MouseEvent event) {
-		loadPage("productList"); // 추천 탭 로드
-	}
-
-	@FXML
-	private void previousOrderClick(MouseEvent event) {
-		loadPage("previousOrder"); // 이전에 주문한 메뉴 탭 로드
-	}
-
-	@FXML
-	private void coffeeClick(MouseEvent event) {
-		loadPage("coffee"); // 커피 탭 로드
-	}
-
-	@FXML
-	private void nonCoffeeClick(MouseEvent event) {
-		loadPage("nonCoffee"); // 논커피 탭 로드
-	}
-
-	@FXML
-	private void bakeryClick(MouseEvent event) {
-		loadPage("bakery"); // 베이커리 탭 로드
-	}
-
-	@FXML
-	private void merchandiseClick(MouseEvent event) {
-		loadPage("merchandise"); // MD 탭 로드
-	}
-
-	private void loadPage(String page) {
+	private void loadPage(int id) {
+		int count = 0;
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource( "/application/customer/order/" + page + ".fxml"));
+//			Parent root = FXMLLoader.load(getClass().getResource( "/application/customer/order/" + page + ".fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/customer/order/productList.fxml"));
+			Parent root = loader.load();
+			OrderPageOptionPopUpController controller = (OrderPageOptionPopUpController) loader.getController();
+			controller.setSelectedCategoryId(id);
 			bp.setCenter(root);
 			cartReDraw();
 

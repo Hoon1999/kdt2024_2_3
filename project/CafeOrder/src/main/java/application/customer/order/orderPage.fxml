@@ -10,15 +10,10 @@
 <?import javafx.scene.Group?>
 <BorderPane fx:id="bp" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.customer.order.OrderPageController">
    <left>
-      <VBox prefHeight="400.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <VBox fx:id="vbox" prefHeight="400.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
             <Button minHeight="-Infinity" maxWidth="Infinity" prefHeight="70.0" VBox.vgrow="ALWAYS" mnemonicParsing="false" onMouseClicked="#recommendClick" text="추천" textAlignment="CENTER" wrapText="true" />
             <Button minHeight="-Infinity" maxWidth="Infinity" prefHeight="70.0" VBox.vgrow="ALWAYS" mnemonicParsing="false" onMouseClicked="#previousOrderClick" text="이전에 주문한 상품" textAlignment="CENTER" wrapText="true" />
-            <Button minHeight="-Infinity" maxWidth="Infinity" prefHeight="70.0" VBox.vgrow="ALWAYS" mnemonicParsing="false" onMouseClicked="#coffeeClick" text="커피" textAlignment="CENTER" wrapText="true" />
-            <Button minHeight="-Infinity" maxWidth="Infinity" prefHeight="70.0" VBox.vgrow="ALWAYS" mnemonicParsing="false" onMouseClicked="#nonCoffeeClick" text="논커피" textAlignment="CENTER" wrapText="true" />
-            <Button minHeight="-Infinity" maxWidth="Infinity" prefHeight="70.0" VBox.vgrow="ALWAYS" mnemonicParsing="false" onMouseClicked="#bakeryClick" text="베이커리" textAlignment="CENTER" wrapText="true" />
-            <Button minHeight="-Infinity" maxWidth="Infinity" prefHeight="70.0" VBox.vgrow="ALWAYS" mnemonicParsing="false" onMouseClicked="#merchandiseClick" text="MD" textAlignment="CENTER" wrapText="true" />
-
          </children>
       </VBox>
    </left>

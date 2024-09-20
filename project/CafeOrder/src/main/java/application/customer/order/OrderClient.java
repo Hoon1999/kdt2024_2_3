@@ -84,7 +84,7 @@ public class OrderClient {
 			
 			while(true) {
 				dis = socket.getInputStream();
-				byte[] buffer = new byte[4096];
+				byte[] buffer = new byte[16384];
 				int length = dis.read(buffer);
 				while(length== -1) throw new IOException();
 				//변경
@@ -169,6 +169,16 @@ public class OrderClient {
 	public JSONObject getOptionTypes() {
 		String sample = "{\"data\": [{\"priority\":1, \"name\": \"Hot/Ice\" , \"id\": 1, \"duplicate\": 0}, {\"priority\":2, \"name\": \"사이즈 변경\", \"id\": 2, \"duplicate\": 0}, {\"priority\":3, \"name\": \"시럽추가\", \"id\": 3, \"duplicate\": 1}, {\"priority\":4, \"name\": \"얼음변경\", \"id\": 4, \"duplicate\": 0}]}";
         JSONObject data = new JSONObject(sample);
+		return data;
+	}
+	public JSONObject getCategories() {
+		String sample = "{\"data\": [{\"id\": 1, \"name\": \"커피\"}, {\"id\": 2, \"name\": \"음료\"}, {\"id\": 3, \"name\": \"에이드\"}, {\"id\": 4, \"name\": \"베이커리\"}]}";
+		JSONObject data = new JSONObject(sample);
+		return data;
+	}
+	public JSONObject getPopularProduct() {
+		String sample = "{\"data\":[{\"id\":1,\"sales_volume\":4},{\"id\":2,\"sales_volume\":4},{\"id\":3,\"sales_volume\":2}]}";
+		JSONObject data = new JSONObject(sample);
 		return data;
 	}
 	public static void main(String[] args) {
