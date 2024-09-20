@@ -57,13 +57,33 @@ public class OrderClient {
 	}
 	
 	//주문서 보내기
-	public void sendOrder(JSONObject orderrecipe) throws IOException{
-		JSONObject order = new JSONObject();
-		order.put("command", "order");
-		order.put("recipe", order);
-		String json = order.toString();
-		
-		send(json);
+	public JSONObject sendOrder(JSONObject orderrecipe) throws IOException{
+		try {
+			JSONObject order = new JSONObject();
+			order.put("command", "order");
+			order.put("ordernum", this.ordernum);
+			order.put("order", orderrecipe);
+			order.put("takeout", this.takeout);
+			String json = order.toString();
+
+			send(json);
+
+			while(true) {
+				dis = socket.getInputStream();
+				byte[] buffer = new byte[4096];
+				int length = dis.read(buffer);
+				while(length== -1) throw new IOException();
+				//변경
+				//root에서 원하는 걸 받아오기
+				String json1 = new String(buffer, 0, length, "UTF-8");
+				JSONObject root = new JSONObject(json1);
+				return root;
+			}
+
+		}catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 	// 싱글톤 패턴 처음 선언할때 해당 함수를 써주세요.

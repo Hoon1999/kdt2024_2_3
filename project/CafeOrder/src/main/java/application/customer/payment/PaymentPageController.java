@@ -7,15 +7,23 @@ import application.customer.menu.MemberInfo;
 import application.customer.menu.Page;
 import application.customer.order.CartController;
 import application.customer.order.OrderClient;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Popup;
 import javafx.stage.Screen;
+import javafx.stage.Stage;
+import javafx.util.Duration;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -82,24 +90,18 @@ public class PaymentPageController  implements Initializable {
         JSONObject orderReceipt = new JSONObject(); // 주문서.
         JSONArray productList = new JSONArray();
         MemberInfo member = MemberInfo.get();
-        //ToDo
-        // 테스트 member 코드 삭제 필요
-        member = new MemberInfo(0, 100);
         int id = member.getId();
         int point = member.getPoint();
         int totalPaymentAmount = 0;
         
         if( takeInBtn.isSelected()) {
-            //ToDo
             // 매장 식사의 경우
             orderReceipt.put("order_type", 0);
         }else if(takeOutBtn.isSelected()) {
-            //ToDo
             // 포장의 경우
             orderReceipt.put("order_type", 1);
 
         } else {
-            //ToDo
             // 둘 다 선택안한 경우
             // 결제 진행 불가
             return ;
@@ -150,16 +152,17 @@ public class PaymentPageController  implements Initializable {
         }
         orderReceipt.put("point", point);
 
-        //ToDo
         // 서버에 처리 커맨드와  orderReceipt 전송
-        System.out.println("주문서: "+ orderReceipt.toString());
+        int orderNumber = 0;
         try{
             OrderClient orderClient = OrderClient.getInstance();
-            orderClient.sendOrder(orderReceipt);
+            JSONObject obj = orderClient.sendOrder(orderReceipt);
+            orderNumber = obj.getInt("data");
         } catch (IOException e) {
             System.out.println("서버 연결 오류 : " + e);
             e.printStackTrace();
         }
+        showCountdownPopup((Stage) bp.getScene().getWindow(), orderNumber);
         // 메인 화면으로 복귀
         loadPage(Page.MAIN_PAGE);
     }
@@ -183,5 +186,49 @@ public class PaymentPageController  implements Initializable {
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
+    }
+    public void showCountdownPopup(Stage owner, int number) {
+        // 팝업 생성
+        Popup popup = new Popup();
+
+
+        Label messageLabel = new Label("주문번호 : " + number);
+        Label messageLabel2 = new Label("5초 후에 이 메세지가 사라집니다.");  // 첫 시작은 5초 후 메시지
+
+        // VBox에 레이블 추가
+        VBox popupLayout = new VBox(10, messageLabel, messageLabel2);
+        popupLayout.setStyle("-fx-background-color: lightblue; -fx-padding: 20px; -fx-alignment: center;");
+        popup.getContent().add(popupLayout);
+
+        // 팝업 위치 설정 및 보이기
+        Screen screen = Screen.getPrimary();
+        double screenWidth = screen.getVisualBounds().getWidth();
+        double screenHeight = screen.getVisualBounds().getHeight();
+
+        popup.setWidth(200);  // 팝업 폭
+        popup.setHeight(100); // 팝업 높이
+        popup.setX((screenWidth - popup.getWidth()) / 2); // 중앙 위치 X
+        popup.setY((screenHeight - popup.getHeight()) / 2); // 중앙 위치 Y
+
+        popup.setAutoHide(true);
+        popup.show(owner);
+
+        // 타임라인을 사용한 카운트다운
+        Timeline countdown = new Timeline();
+        countdown.setCycleCount(5);  // 5초 동안 카운트다운
+
+        countdown.getKeyFrames().add(
+                new KeyFrame(Duration.seconds(1), event -> {
+                    // 현재 메시지를 업데이트
+                    String currentText = messageLabel2.getText();
+                    int currentCount = Integer.parseInt(currentText.substring(0, 1));  // 현재 초를 추출
+                    currentCount--;
+                    messageLabel2.setText(currentCount + "초 후에 이 메세지가 사라집니다.");
+                })
+        );
+
+        // 타임라인이 끝난 후 팝업 닫기
+        countdown.setOnFinished(event -> popup.hide());
+        countdown.play();
     }
 }
