@@ -22,12 +22,14 @@ public class OrderClient {
 	String pcs;
 	//최종 오더
 	JSONObject orderrecipe = new JSONObject();
-	
+	//싱글톤
+	private static OrderClient instance;
+
 	//서버 연결
 	public void connect() throws IOException{
 		socket = new Socket("localhost",50001);
 		dis = socket.getInputStream();
-		dos = socket.getOutputStream();	
+		dos = socket.getOutputStream();
 		System.out.println("[키오스크]가 서버에 연결되었습니다.");
 	}
 	//메뉴 보내기
@@ -40,8 +42,8 @@ public class OrderClient {
 	public void unconnect() throws IOException{
 		socket.close();
 	}
-	
-	
+
+
 	//메뉴 및 실행 커스텀 함수
 	public void makenewid() throws IOException{ //키오스크 킬시 키오스크 소켓 생성
 		Random random = new Random();
@@ -50,99 +52,188 @@ public class OrderClient {
 		jsonObject.put("command", "enter");
 		jsonObject.put("id", this.id);
 		String json = jsonObject.toString();
-		
+
 		send(json);
 	}
-	
-	
-	public void setOrdernum(String ordernum) {
-		this.ordernum = ordernum;
+
+	//주문서 보내기
+	public JSONObject sendOrder(){
+		try {
+			JSONObject order = new JSONObject();
+			order.put("command", "order");
+			order.put("ordernum", this.ordernum);
+			order.put("order", this.orderrecipe);
+			order.put("takeout", this.takeout);
+			String json = order.toString();
+
+			send(json);
+
+			while(true) {
+				dis = socket.getInputStream();
+				byte[] buffer = new byte[4096];
+				int length = dis.read(buffer);
+				while(length== -1) throw new IOException();
+				//변경
+				//root에서 원하는 걸 받아오기
+				String json1 = new String(buffer, 0, length, "UTF-8");
+				JSONObject root = new JSONObject(json1);
+				return root;
+			}
+
+		}catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
-	public void setMenu(String menu) {
-		this.menu = menu;
+
+	// 싱글톤 패턴 처음 선언할때 해당 함수를 써주세요.
+	public static OrderClient getInstance() {
+		if(instance == null) {
+			instance = new OrderClient();
+		}
+		return instance;
 	}
-	public void setOption(String option) {
-		this.option.put(option);
+
+	//메뉴호출
+	public JSONObject callmenu() {
+		try {
+			JSONObject order = new JSONObject();
+			order.put("command", "callMenu");
+			String call = order.toString();
+			send(call);
+
+			while(true) {
+				dis = socket.getInputStream();
+				byte[] buffer = new byte[16384];
+				int length = dis.read(buffer);
+				while(length== -1) throw new IOException();
+				//변경
+				//root에서 원하는 걸 받아오기
+				String json = new String(buffer, 0, length, "UTF-8");
+				JSONObject root = new JSONObject(json);
+				return root;
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
-	public void setPcs(String pcs) {
-		this.pcs = pcs;
+
+	//메뉴별 옵션 호출 String으로 메뉴를 받아서 판별.(나중에 값 변경 가능)
+	public JSONObject callOption(int product_id) {
+		try {
+			JSONObject order = new JSONObject();
+			order.put("command", "callOptionMenu");
+			order.put("product_id", product_id);
+			String call = order.toString();
+			send(call);
+
+			while(true) {
+				dis = socket.getInputStream();
+				byte[] buffer = new byte[16384];
+				int length = dis.read(buffer);
+				while(length== -1) throw new IOException();
+				//변경
+				//root에서 원하는 걸 받아오기
+				String json = new String(buffer, 0, length, "UTF-8");
+				JSONObject root = new JSONObject(json);
+				return root;
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
-	public void setTakeout(boolean takeout) {
-		this.takeout = takeout;
+
+	//회원판별
+	public JSONObject findMember(String number) {
+		try {
+			JSONObject order = new JSONObject();
+			order.put("command", "search");
+			order.put("number", number);
+			String call = order.toString();
+			send(call);
+
+			while(true) {
+				dis = socket.getInputStream();
+				byte[] buffer = new byte[4096];
+				int length = dis.read(buffer);
+				while(length== -1) throw new IOException();
+				//변경
+				//root에서 원하는 걸 받아오기
+				String json = new String(buffer, 0, length, "UTF-8");
+				JSONObject root = new JSONObject(json);
+				return root;
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
-	
-	public void addOrder(String key){
-		JSONObject order = new JSONObject();
-		order.put("menu", this.menu);
-		order.put("option", this.option);
-		order.put("pcs", this.pcs);
-		this.orderrecipe.put(key,order);
+
+	public void joinMember(String number) {
+		try {
+			JSONObject order = new JSONObject();
+			order.put("command", "search");
+			order.put("number", number);
+			String call = order.toString();
+			send(call);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
-	public void deleteOrder(String key) {
-		this.orderrecipe.remove(key);
-	}
-	public void deleteAll() {
-		this.orderrecipe.clear();
-	}
-	public void sendOrder() throws IOException{
-		JSONObject order = new JSONObject();
-		order.put("command", "order");
-		order.put("ordernum", this.ordernum);
-		order.put("order", this.orderrecipe);
-		order.put("takeout", this.takeout);
-		String json = order.toString();
-		
-		send(json);
-	}
-	
-	
+
 	public static void main(String[] args) {
 		//여기서부터
 		try {
 			OrderClient orderClient = new OrderClient();
 			orderClient.connect();
 			Scanner scanner = new Scanner(System.in);
-			
+
 			//기기 아이디 받기
 			orderClient.makenewid();
-			//여기까지 메인 함수나 실행 함수에 넣어주세요
-			//외의 set 함수로 각각의 메뉴를 받은 뒤 makeOrder() 함수로 주문을 보냅니다.
-			
-			//예시
-			orderClient.setOrdernum("321"); //주문번호를 정합니다
-			//포장여부를 정합니다.
-			orderClient.setTakeout(true);
-			//메뉴를 고릅니다.
-			orderClient.setMenu("커피");
-			orderClient.setOption("시럽많이");
-			orderClient.setOption("얼음적게");
-			orderClient.setPcs("2");
-			orderClient.addOrder("1");
-			//커피 시럽많이 얼음적게 로 2개인 1번주문에 추가로
-			orderClient.setMenu("라떼");
-			orderClient.setOption("시럽적게");
-			orderClient.setOption("우유많이");
-			orderClient.setPcs("2");
-			orderClient.addOrder("2");
-			//커피 시럽많이 얼음적게 로 2개인 2번주문을 동시에 시킵니다
-			//하지만 라떼를 갑자기 취소하게 되었으므로
-			orderClient.deleteOrder("2");
-			//라떼 주문인 2번 주문을 삭제합니다.
-			
-			//그리고 결제버튼을 누르면
-			orderClient.sendOrder();
-			//저장된 주문 정보가 전송됩니다.
-			
-			//무언가 세션을 계속 유지 시켜줘야할 필요가 있습니다
-			while(true) {
-				String message = scanner.nextLine();
-				if(message.toLowerCase().equals("q")) break; //종료버튼등 다양하게 커스텀 해주시면 됩니다.
-			}
-			
+
 		}catch(IOException e) {
-			
+
 		}
 		//여기까지 make 함수로 넣어주세요
 	}
 }
+
+//게터세터존 현재는 사용하지 않습니다.
+/*
+public void setOrdernum(String ordernum) {
+	this.ordernum = ordernum;
+	System.out.println(this.ordernum);
+}
+public void setMenu(String menu) {
+	this.menu = menu;
+}
+public void setOption(String option) {
+	this.option.put(option);
+}
+public void setPcs(String pcs) {
+	this.pcs = pcs;
+}
+public void setTakeout(boolean takeout) {
+	this.takeout = takeout;
+}
+
+public void addOrder(String key){
+	JSONObject order = new JSONObject();
+	order.put("menu", this.menu);
+	order.put("option", this.option);
+	order.put("pcs", this.pcs);
+	this.orderrecipe.put(key,order);
+}
+public void deleteOrder(String key) {
+	this.orderrecipe.remove(key);
+}
+public void deleteAll() {
+	this.orderrecipe.clear();
+}*/
 

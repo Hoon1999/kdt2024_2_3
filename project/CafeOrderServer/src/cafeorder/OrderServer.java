@@ -39,6 +39,7 @@ public class OrderServer {
 		}catch(IOException e1) {}
 	}
 	
+	
 	//클라이언트 생성
 	public void addSocket(SocketClient socketClient) {
 		String key = socketClient.id;
@@ -58,25 +59,56 @@ public class OrderServer {
 	public void sendOrdertoManager(SocketClient sender, JSONObject order) {
 		JSONObject root = new JSONObject();
 		root.put("kioskid", sender.id);
-		root.put("ordernum", order.getString("ordernum"));
-		root.put("order", order.getJSONObject("order"));
-		root.put("takeout", order.getBoolean("takeout"));
+		root.put("order", order);
 		String json = root.toString();
+		String callback = CDBC.order(order).toString();
 		
 		Collection<SocketClient> socketClients = room.values();
 		for(SocketClient sc : socketClients) {
 			if(sc.id.equals("manager")) sc.send(json);
+			else sc.send(callback);
 		}
 	}
+	//메뉴 불러오기
+	public void callMenu(SocketClient sender) {
+		//JSONObject root = new JSONObject();
+        JSONObject root = CDBC.getAllProducts();
+        String json = root.toString();
+        sender.send(json);
+	};
+	//옵션 불러오기
+	public void callOption(SocketClient sender, int product_id) {
+		//JSONObject root = new JSONObject();
+		//JSONObject root = CDBC.getOptions(product_id);
+		//String json = root.toString();
+		//sender.send(json);
+	}
+	//회원서치
+	public void searchMem(SocketClient sender, String number) {
+		JSONObject root = CDBC.findMemberId(number);
+		//JSONObject root = new JSONObject();
+		String json = root.toString();
+		sender.send(json);
+	}
+	//회원가입
+	public void joinMem(String number) {
+		CDBC.joinMember(number);
+	}
+	
+	//카테고리 추가
+	public void addCategory(String category) {
+		CDBC.addCategory(category);
+	}
+	
 	//서버 메인 함수
 	public static void main(String[] args) {
 		try {
 			OrderServer orderServer = new OrderServer();
 			orderServer.start();
 			
-			System.out.println("----------------------------------------------------");
+			System.out.println("----------------------------------");
 			System.out.println("서버를 종료하려면 q 를 입력하고 Enter.");
-			System.out.println("----------------------------------------------------");
+			System.out.println("----------------------------------");
 			
 			Scanner scanner = new Scanner(System.in);
 			while(true) {
