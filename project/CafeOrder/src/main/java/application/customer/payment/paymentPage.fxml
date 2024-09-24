@@ -6,7 +6,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane fx:id="bp" xmlns="http://javafx.com/javafx"
+<BorderPane
+        stylesheets="@style.css"
+        fx:id="bp" xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="application.customer.payment.PaymentPageController"
             >
