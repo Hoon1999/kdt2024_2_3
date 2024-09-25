@@ -58,7 +58,7 @@ KDT 자바 스프링 리액트로 완성하는 클라우드 풀스택 과정 - 2
 ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)
 
 ## 데이터베이스 구조
-![ERD](https://github.com/Hoon1999/hoon1999.github.io/blob/main/assets/img/2024-09-05/project_cafe-order/1.png?raw=true)
+![ERD](https://github.com/Hoon1999/kdt2024_2_3/blob/main/documents/%EC%99%84%EB%A3%8C%EB%B3%B4%EA%B3%A0%EC%84%9C_%EC%A0%9C%EC%B6%9C/%E1%84%87%E1%85%A7%E1%86%AF%E1%84%8E%E1%85%A5%E1%86%B74_ER_%E1%84%83%E1%85%A1%E1%84%8B%E1%85%B5%E1%84%8B%E1%85%A5%E1%84%80%E1%85%B3%E1%84%85%E1%85%A2%E1%86%B7.png?raw=true)
 
 ## 프로젝트 구조
 ```
