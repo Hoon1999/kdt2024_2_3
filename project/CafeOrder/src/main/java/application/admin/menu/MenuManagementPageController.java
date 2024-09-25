@@ -6,6 +6,8 @@ import java.util.logging.Logger;
 
 import application.admin.login.LoginPageController;
 import application.admin.main.AdminMainPageController;
+import application.admin.menu.option.MenuOptionPageController;
+import application.admin.menu.product.MenuProductPageController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -72,10 +74,8 @@ public class MenuManagementPageController {
 	
 	
 	public void setMenuProductManagementPage() {
-		// TODO
 		bpProduct.setCenter(AdminMainPageController.getMainPageController().getMenuManagementPageController().getMenuProductPageController().getMenuProductManagementPage());
 	}
-	
 	public void setMenuOptionManagementPage() {
 		bpOption.setCenter(AdminMainPageController.getMainPageController().getMenuManagementPageController().getMenuOptionPageController().getMenuOptionManagementPage());
 	}

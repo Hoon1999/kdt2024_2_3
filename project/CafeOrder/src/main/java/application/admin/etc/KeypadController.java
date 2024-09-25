@@ -17,7 +17,7 @@ public class KeypadController {
 	private Button btn6, btn7, btn8, btn9, btn0;
 	private Button btnEraseOne, btnEraseAll;
 	
-	public Parent getKeypad(TextField textField) {
+	public Parent getKeypad(TextField textField, boolean isSpinner) {
 		if(keypad == null) {
 			try {
 				// System.out.println("init keypad");
@@ -43,27 +43,46 @@ public class KeypadController {
 			}
 		}
 		
-		btn1.setOnAction(event -> textField.appendText("1"));
-		btn2.setOnAction(event -> textField.appendText("2"));
-		btn3.setOnAction(event -> textField.appendText("3"));
-		btn4.setOnAction(event -> textField.appendText("4"));
-		btn5.setOnAction(event -> textField.appendText("5"));
-		btn6.setOnAction(event -> textField.appendText("6"));
-		btn7.setOnAction(event -> textField.appendText("7"));
-		btn8.setOnAction(event -> textField.appendText("8"));
-		btn9.setOnAction(event -> textField.appendText("9"));
-		btn0.setOnAction(event -> textField.appendText("0"));
-		btnEraseOne.setOnAction(event -> textField.setText(eraseOne(textField.getText())));
-		btnEraseAll.setOnAction(event -> textField.clear());
+		btn1.setOnAction(e -> appentText(textField, "1"));
+		btn2.setOnAction(e -> appentText(textField, "2"));
+		btn3.setOnAction(e -> appentText(textField, "3"));
+		btn4.setOnAction(e -> appentText(textField, "4"));
+		btn5.setOnAction(e -> appentText(textField, "5"));
+		btn6.setOnAction(e -> appentText(textField, "6"));
+		btn7.setOnAction(e -> appentText(textField, "7"));
+		btn8.setOnAction(e -> appentText(textField, "8"));
+		btn9.setOnAction(e -> appentText(textField, "9"));
+		btn0.setOnAction(e -> appentText(textField, "0"));
+		btnEraseOne.setOnAction(e -> eraseOne(textField, isSpinner));
+		btnEraseAll.setOnAction(e -> eraseAll(textField));
 		
 		// System.out.println("return keypad");
 		return keypad;
 	}
 	
-	private String eraseOne(String str) {
+	private void appentText(TextField textField, String str) {
+		textField.requestFocus();
+		textField.appendText(str);
+	}
+	
+	private void eraseOne(TextField textField, boolean isSpinner) {
+		textField.requestFocus();
+		String str = textField.getText();
 		if (!str.isEmpty()) {
 			str = str.substring(0, str.length()-1);
 		}
-		return str;
+		textField.clear();
+		textField.appendText(str);
+		
+		if (isSpinner) {
+			if (textField.getText().equals("")) {
+				textField.appendText("0");
+			}
+		}
+	}
+	
+	private void eraseAll(TextField textField) {
+		textField.requestFocus();
+		textField.clear();
 	}
 }

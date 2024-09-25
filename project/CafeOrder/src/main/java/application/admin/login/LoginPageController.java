@@ -30,8 +30,7 @@ public class LoginPageController implements Initializable {
 	
 	
 	// TODO 이동 필요.
-	//private static final String PASSWORD_FILE_NAME = "json\\password.json"; // on windows;
-	private static final String PASSWORD_FILE_NAME = "json/password.json"; // on mac;
+	private static final String PASSWORD_FILE_NAME = "json/password.json";
 	
 	public static String getPassword() {
 		String pw;
@@ -92,7 +91,7 @@ public class LoginPageController implements Initializable {
 			}
 		});
 		
-		bpKeypad.setCenter(AdminMainPageController.getMainPageController().getKeypadController().getKeypad(pwfPassword));
+		bpKeypad.setCenter(AdminMainPageController.getMainPageController().getKeypadController().getKeypad(pwfPassword, false));
 	}
 
 

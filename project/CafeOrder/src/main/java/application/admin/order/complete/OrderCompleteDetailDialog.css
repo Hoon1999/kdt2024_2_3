@@ -1,0 +1,19 @@
+#bpBackground {
+	-fx-border-color: black;
+	-fx-border-width: 1px;
+	-fx-background-color: snow;
+}
+
+#lbOrderNum, #lbSharp, #lbIsTakeout {
+	-fx-text-fill: black;
+	-fx-font-size: 18px;
+}
+
+.button {
+	-fx-font-size: 13px;
+}
+
+#btnOrderIncomplete {
+	-fx-base: FF4040;
+	-fx-text-fill: snow;
+}

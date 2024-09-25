@@ -187,9 +187,29 @@ public class OrderClient {
 		}
 	}
 	public JSONObject getOptionTypes() {
-		String sample = "{\"data\": [{\"priority\":1, \"name\": \"Hot/Ice\" , \"id\": 1, \"duplicate\": 0}, {\"priority\":2, \"name\": \"사이즈 변경\", \"id\": 2, \"duplicate\": 0}, {\"priority\":3, \"name\": \"시럽추가\", \"id\": 3, \"duplicate\": 1}, {\"priority\":4, \"name\": \"얼음변경\", \"id\": 4, \"duplicate\": 0}]}";
-        JSONObject data = new JSONObject(sample);
-		return data;
+		try {
+			JSONObject order = new JSONObject();
+			order.put("command", "options");
+			order.put("number", 1);
+			String call = order.toString();
+			send(call);
+
+			while(true) {
+				dis = socket.getInputStream();
+				byte[] buffer = new byte[4096];
+				int length = dis.read(buffer);
+				while(length== -1) throw new IOException();
+				//변경
+				//root에서 원하는 걸 받아오기
+				String json = new String(buffer, 0, length, "UTF-8");
+				JSONObject root = new JSONObject(json);
+				return root;
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 	public JSONObject getCategories() {
 		String sample = "{\"data\": [{\"id\": 1, \"name\": \"커피\"}, {\"id\": 2, \"name\": \"음료\"}, {\"id\": 3, \"name\": \"에이드\"}, {\"id\": 4, \"name\": \"베이커리\"}]}";
@@ -198,6 +218,21 @@ public class OrderClient {
 	}
 	public JSONObject getPopularProduct() {
 		String sample = "{\"data\":[{\"id\":1,\"sales_volume\":4},{\"id\":2,\"sales_volume\":4},{\"id\":3,\"sales_volume\":2}]}";
+		JSONObject data = new JSONObject(sample);
+		return data;
+	}
+	public JSONObject getSales() {
+		String sample = "{\"data\":[{\"phoneNumber\":\"000-0000-0000\",\"id\":2,\"paymentTime\":\"2024-09-20 14:22:42\",\"paymentAmount\":4500},{\"phoneNumber\":\"000-0000-0000\",\"id\":3,\"paymentTime\":\"2024-09-20 14:23:13\",\"paymentAmount\":4500},{\"phoneNumber\":\"000-0000-0000\",\"id\":4,\"paymentTime\":\"2024-09-20 14:23:25\",\"paymentAmount\":4500},{\"phoneNumber\":\"000-0000-0000\",\"id\":5,\"paymentTime\":\"2024-09-20 14:39:33\",\"paymentAmount\":4500},{\"phoneNumber\":\"000-0000-0000\",\"id\":6,\"paymentTime\":\"2024-09-20 14:39:55\",\"paymentAmount\":4500},{\"phoneNumber\":\"000-0000-0000\",\"id\":7,\"paymentTime\":\"2024-09-20 15:09:38\",\"paymentAmount\":4500},{\"phoneNumber\":\"000-0000-0000\",\"id\":8,\"paymentTime\":\"2024-09-20 15:11:41\",\"paymentAmount\":4500},{\"phoneNumber\":\"000-0000-0000\",\"id\":9,\"paymentTime\":\"2024-09-20 15:17:55\",\"paymentAmount\":2000}]}";
+		JSONObject data = new JSONObject(sample);
+		return data;
+	}
+	public JSONObject getDailySales() {
+		String sample = "{\"data\":[{\"date\":\"2024-09-20\",\"sales\":33500}, {\"date\":\"2024-09-19\",\"sales\":12333}, {\"date\":\"2024-09-21\",\"sales\":55555}]}";
+		JSONObject data = new JSONObject(sample);
+		return data;
+	}
+	public JSONObject getMonthlySales() {
+		String sample = "{\"data\":[{\"date\":\"2024-09\",\"sales\":33500}]}";
 		JSONObject data = new JSONObject(sample);
 		return data;
 	}

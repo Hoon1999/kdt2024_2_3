@@ -7,6 +7,8 @@ import java.util.logging.Logger;
 
 import application.admin.login.LoginPageController;
 import application.admin.main.AdminMainPageController;
+import application.admin.order.acceptance.OrderAcceptanceManagementPageController;
+import application.admin.order.complete.OrderCompleteManagementPageController;
 
 import java.io.IOException;
 
@@ -65,6 +67,8 @@ public class OrderManagementPageController {
 				
 				bpAcceptance = (BorderPane) orderManagementPage.lookup("#bpAcceptance");
 				bpComplete = (BorderPane) orderManagementPage.lookup("#bpComplete");
+				
+				System.out.println("init success orderManagementPage");
 			}catch (Exception e) {
 				System.out.println("!(orderManagementPage-IOException) :" + e.getMessage());
 				Logger.getLogger(LoginPageController.class.getName()).log(Level.SEVERE, null, e);

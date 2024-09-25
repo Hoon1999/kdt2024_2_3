@@ -102,6 +102,7 @@ public class OrderPageOptionPopUpController implements Initializable {
                     pd.getInt("price"),
                     pd.getInt("stock_count"),
                     pd.getInt("out_of_stock"),
+                    pd.getString("image_path"),
                     opt);
             product.add(p);
         }
@@ -126,9 +127,11 @@ public class OrderPageOptionPopUpController implements Initializable {
         Label name = new Label(p.getName());
         name.setId("name");
         name.setMouseTransparent(true);
-        Label price = new Label(Integer.toString(p.getPrice()));
+        name.setTranslateY(30);
+        Label price = new Label(Integer.toString(p.getPrice()) + " 원");
         price.setId("price");
         price.setMouseTransparent(true);
+        price.setTranslateY(60);
 
         sp.getChildren().addAll(button, name, price);
         gridPane.getChildren().addAll(sp);
@@ -232,15 +235,19 @@ public class OrderPageOptionPopUpController implements Initializable {
                 }
             }));
             button.setId("" + o.getId());
-            button.setPrefHeight(40.0);
+            button.setPrefHeight(60.0);
+            button.setPrefWidth(70.0);
 
             ImageView img = new ImageView();
             button.setGraphic(img);
 
             Label name = new Label(o.getName());
             name.setMouseTransparent(true);
+            name.setTranslateY(0);
+
             Label price = new Label("+" + o.getPrice() + "원");
             price.setMouseTransparent(true);
+            price.setTranslateY(20);
 
             sp.getChildren().addAll(button, name, price);
 

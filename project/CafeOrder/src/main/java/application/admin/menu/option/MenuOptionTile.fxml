@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1"
+ maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="300.0" >
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
+   <left>
+      <HBox alignment="CENTER" spacing="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="lbOptionId" ellipsisString=".." prefWidth="30.0" text="1" />
+            <Label fx:id="lbOptionName" prefWidth="90.0" text="옵션명" />
+         </children>
+      </HBox>
+   </left>
+   <right>
+      <HBox alignment="CENTER" spacing="5.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="btnToSale" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefWidth="80.0" text="판매로 변경" />
+            <Button fx:id="btnToStockOut" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefWidth="80.0" text="품절로 변경" />
+         </children>
+      </HBox>
+   </right>
+   <bottom>
+      <Separator prefWidth="300.0" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets top="5.0" />
+         </BorderPane.margin>
+      </Separator>
+   </bottom>
+</BorderPane>

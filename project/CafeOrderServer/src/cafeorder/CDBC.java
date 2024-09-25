@@ -87,7 +87,6 @@ public class CDBC {
         try {
             con.setAutoCommit(false); // start transaction
             pstmt = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS); // auto_increment 된 id 를 가져오기위한 인자
-            System.out.println(orderList);
             pstmt.setInt(1, orderList.getInt("id")); // ? 자리에 값 삽입
             pstmt.setInt(2, orderList.getInt("order_type")); // ? 자리에 값 삽입
             int rt = pstmt.executeUpdate(); // 쿼리 실행
@@ -323,6 +322,7 @@ public class CDBC {
                 product.put("price", rs.getInt(4));
                 product.put("stock_count", rs.getInt(5));
                 product.put("out_of_stock", rs.getInt(6));
+                product.put("image_path", rs.getString(7));
 
                 String sql = "select * from product_option po join `option` o on po.option_id = o.id where product_id = ?";
                 pstmt = con.prepareStatement(sql);
@@ -465,6 +465,147 @@ public class CDBC {
         JSONObject data = new JSONObject().put("data", categoryList);
         return data;
     }
+    public static JSONObject getSales() {
+        if(cdbc == null) {
+            cdbc = new CDBC();
+        }
+        connect();
+        JSONArray categoryList = new JSONArray();
+        try {
+            String qry = "select o.id, m.phone_number, o.total_payment_amount, o.payment_time from `order` o join member m on o.member_id = m.id" ;
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(qry);
+            while(rs.next()){
+                JSONObject category = new JSONObject();
+                category.put("id", rs.getInt(1));
+                category.put("phoneNumber", rs.getString(2));
+                category.put("paymentAmount", rs.getInt(3));
+                category.put("paymentTime", rs.getString(4));
+
+                categoryList.put(category);
+            }
+        } catch(SQLException e) {
+            System.out.println("에러: " + e.getMessage());
+        }
+        finally {
+            if(rs != null)
+                try {
+                    rs.close();
+                } catch(SQLException sqle) {}
+            if(stmt != null)
+                try {
+                    stmt.close();
+                } catch(SQLException sqle) {}
+        }
+        disconnect();
+        JSONObject data = new JSONObject().put("data", categoryList);
+        return data;
+    }
+    public static JSONObject getDailySales() {
+        if(cdbc == null) {
+            cdbc = new CDBC();
+        }
+        connect();
+        JSONArray categoryList = new JSONArray();
+        try {
+            String qry = "select Date(payment_time), sum(total_payment_amount) from `order` group by Date(payment_time)" ;
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(qry);
+            while(rs.next()){
+                JSONObject category = new JSONObject();
+                category.put("date", rs.getString(1));
+                category.put("sales", rs.getInt(2));
+
+                categoryList.put(category);
+            }
+        } catch(SQLException e) {
+            System.out.println("에러: " + e.getMessage());
+        }
+        finally {
+            if(rs != null)
+                try {
+                    rs.close();
+                } catch(SQLException sqle) {}
+            if(stmt != null)
+                try {
+                    stmt.close();
+                } catch(SQLException sqle) {}
+        }
+        disconnect();
+        JSONObject data = new JSONObject().put("data", categoryList);
+        return data;
+    }
+    public static JSONObject getMonthlySales() {
+        if(cdbc == null) {
+            cdbc = new CDBC();
+        }
+        connect();
+        JSONArray categoryList = new JSONArray();
+        try {
+            String qry = "SELECT DATE_FORMAT(payment_time, '%Y-%m'), sum(total_payment_amount) FROM `order` GROUP BY DATE_FORMAT(payment_time, '%Y-%m')" ;
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(qry);
+            while(rs.next()){
+                JSONObject category = new JSONObject();
+                category.put("date", rs.getString(1));
+                category.put("Sales", rs.getInt(2));
+
+                categoryList.put(category);
+            }
+        } catch(SQLException e) {
+            System.out.println("에러: " + e.getMessage());
+        }
+        finally {
+            if(rs != null)
+                try {
+                    rs.close();
+                } catch(SQLException sqle) {}
+            if(stmt != null)
+                try {
+                    stmt.close();
+                } catch(SQLException sqle) {}
+        }
+        disconnect();
+        JSONObject data = new JSONObject().put("data", categoryList);
+        return data;
+    }
+
+    public static JSONObject getProductSales() {
+        if(cdbc == null) {
+            cdbc = new CDBC();
+        }
+        connect();
+        JSONArray categoryList = new JSONArray();
+        try {
+            String qry = "select p.id, p.name, count(product_id) as `count` from order_detail od join product p on p.id = od.product_id group by product_id order by `count` desc limit 10" ;
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(qry);
+            while(rs.next()){
+                JSONObject category = new JSONObject();
+                category.put("id", rs.getInt(1));
+                category.put("name", rs.getString(2));
+                category.put("count", rs.getInt(3));
+
+                categoryList.put(category);
+            }
+        } catch(SQLException e) {
+            System.out.println("에러: " + e.getMessage());
+        }
+        finally {
+            if(rs != null)
+                try {
+                    rs.close();
+                } catch(SQLException sqle) {}
+            if(stmt != null)
+                try {
+                    stmt.close();
+                } catch(SQLException sqle) {}
+        }
+        disconnect();
+        JSONObject data = new JSONObject().put("data", categoryList);
+        return data;
+    }
+
     public static int getAutoIncId(PreparedStatement pstmt) throws SQLException{
         if(pstmt == null)
             throw new SQLException("pstmt 를 실행한 뒤에 호출해야합니다.");

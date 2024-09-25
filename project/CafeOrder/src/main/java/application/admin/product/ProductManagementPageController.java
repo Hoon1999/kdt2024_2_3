@@ -30,7 +30,7 @@ public class ProductManagementPageController {
 	private Tab tabOption;
 	private Tab tabProdOptLink;
 	
-	/// TODO 각 탭을 각각의 fxml 로 나누고, 세팅처럼 해보자.
+	
 	private ProductProductManagementPageController productProductManagementPageController = null;
 	public ProductProductManagementPageController getProductProductManagementPageController() {
 		if (productProductManagementPageController == null) {
@@ -45,6 +45,14 @@ public class ProductManagementPageController {
 		}
 		return productOptionManagementPageController;
 	}
+	private ProductProdOptLinkManagementPageController productProdOptLinkManagementPageController = null;
+	public ProductProdOptLinkManagementPageController getProductProdOptLinkManagementPageController() {
+		if (productProdOptLinkManagementPageController == null) {
+			productProdOptLinkManagementPageController= new ProductProdOptLinkManagementPageController();
+		}
+		return productProdOptLinkManagementPageController;
+	}
+	
 	
 	public Parent getProductManagementPage() {
 		if(productManagementPage == null) {
@@ -52,8 +60,7 @@ public class ProductManagementPageController {
 				System.out.println("init productManagementPage");
 				productManagementPage = FXMLLoader.load(getClass().getResource("ProductManagementPage.fxml"));
 				
-				// 요소 가져오기. // TODO
-//				vbDefault = (VBox) productManagementPage.lookup("#vbDefault");
+				// 요소 가져오기.
 				bpProduct = (BorderPane) productManagementPage.lookup("#bpProduct");
 				bpOption = (BorderPane) productManagementPage.lookup("#bpOption");
 				bpProdOptLink = (BorderPane) productManagementPage.lookup("#bpProdOptLink");
@@ -65,10 +72,9 @@ public class ProductManagementPageController {
 			}
 		}
 		
-		// 기본페이지로.
-//		setSettingPageDefault();
 		setProductProductManagementPage();
 		setProductOptionManagementPage();
+		setProductProdOptLinkManagementPage();
 		
 		System.out.println("return productManagementPage");
 		return productManagementPage;
@@ -80,5 +86,9 @@ public class ProductManagementPageController {
 	
 	public void setProductOptionManagementPage() {
 		bpOption.setCenter(AdminMainPageController.getMainPageController().getProductManagementPageController().getProductOptionManagementPageController().getProductOptionManagementPage());
+	}
+	
+	public void setProductProdOptLinkManagementPage() {
+		bpProdOptLink.setCenter(AdminMainPageController.getMainPageController().getProductManagementPageController().getProductProdOptLinkManagementPageController().getProductProdOptLinkManagementPage());
 	}
 }

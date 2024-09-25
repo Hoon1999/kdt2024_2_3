@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1"
+ fx:id="bp" prefHeight="80.0" prefWidth="110.0" minHeight="80.0" minWidth="110.0" maxHeight="80.0" maxWidth="110.0"
+ stylesheets="@OrderCompleteSimpleTile.css" >
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
+   <top>
+      <BorderPane BorderPane.alignment="CENTER">
+         <left>
+            <HBox BorderPane.alignment="CENTER">
+               <children>
+                  <Label text="# " />
+                  <Label fx:id="lbOrderNum" text="1" />
+                  <Label fx:id="lbIsTakeout" text="(포/매)" />
+               </children>
+            </HBox>
+         </left>
+         <right>
+            <Label fx:id="lbOrderTime" text="21:39" maxWidth="30.0" BorderPane.alignment="CENTER" />
+         </right>
+      </BorderPane>
+   </top>
+   <center>
+      <Button fx:id="btnOrderDetail" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0"  minHeight="40.0" minWidth="100.0" maxHeight="40.0" maxWidth="100.0" BorderPane.alignment="CENTER" />
+   </center>
+   <bottom>
+      <HBox BorderPane.alignment="CENTER">
+         <children>
+            <Label text="주문 " />
+            <Label fx:id="lbOrderCount" text="1" />
+            <Label text=" 개" />
+         </children>
+      </HBox>
+   </bottom>
+</BorderPane>

@@ -1,0 +1,27 @@
+#bpBackground {
+	-fx-border-color: black;
+	-fx-border-width: 1px;
+	-fx-background-color: snow;
+}
+
+#lbOrderNum, #lbSharp, #lbIsTakeout  {
+	-fx-text-fill: black;
+	-fx-font-size: 18px;
+}
+
+.button {
+	-fx-font-size: 14px;
+}
+
+#btnOrderCancel {
+	-fx-base: whitesmoke;
+	-fx-text-fill: #FF4040;
+	-fx-border-color: #FF4040;
+	-fx-border-width: 1px;
+	-fx-border-radius: 3px;
+}
+
+#btnOrderComplete {
+	-fx-base: #0080FF;
+	-fx-text-fill: snow;
+}

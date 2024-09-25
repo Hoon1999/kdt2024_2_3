@@ -6,6 +6,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import application.admin.etc.KeypadController;
+import application.admin.etc.option.OptionManager;
+import application.admin.etc.order.OrderManager;
+import application.admin.etc.product.Product;
+import application.admin.etc.product.ProductManager;
 import application.admin.login.LoginPageController;
 import application.admin.menu.MenuManagementPageController;
 import application.admin.order.OrderManagementPageController;
@@ -109,6 +113,30 @@ public class AdminMainPageController implements Initializable {
 		return settingManagementPageController;
 	}
 	
+	// Orders. // 주문 관리.
+	private OrderManager orderManager = null;
+	public OrderManager getOrderManager() {
+		if (orderManager == null) {
+			orderManager = new OrderManager();
+		}
+		return orderManager;
+	}
+	// Products. // 상품 및 카테고리 관리.
+	private ProductManager productManager = null;
+	public ProductManager getProductManager() {
+		if (productManager == null) {
+			productManager = new ProductManager();
+		}
+		return productManager;
+	}
+	// Options. // 옵션 및 하위 옵션 관리.
+	private OptionManager optionManager = null;
+	public OptionManager getOptionManager() {
+		if (optionManager == null) {
+			optionManager = new OptionManager();
+		}
+		return optionManager;
+	}
 	
 	// initialize.
 	public void initialize(URL url, ResourceBundle rb) {
@@ -140,24 +168,9 @@ public class AdminMainPageController implements Initializable {
 		btnMenuManagement.setOnAction(event -> callMenuManagementPage(null));
 		btnSettingManagement.setOnAction(event -> callSettingManagementPage(null));
 		
-//		touch/mouse press events.
-//		btnOrderManagement.setOnTouchPressed(event -> callOrderManagementPage(null));
-//		btnSaleManagement.setOnTouchPressed(event -> callSaleManagementPage(null));
-//		btnProductManagement.setOnTouchPressed(event -> callProductManagementPage(null));
-//		btnMenuManagement.setOnTouchPressed(event -> callMenuManagementPage(null));
-//		btnSettingManagement.setOnTouchPressed(event -> callSettingManagementPage(null));
-//		
-//		btnOrderManagement.setOnMousePressed(event -> callOrderManagementPage(null));
-//		btnSaleManagement.setOnMousePressed(event -> callSaleManagementPage(null));
-//		btnProductManagement.setOnMousePressed(event -> callProductManagementPage(null));
-//		btnMenuManagement.setOnMousePressed(event -> callMenuManagementPage(null));
-//		btnSettingManagement.setOnMousePressed(event -> callSettingManagementPage(null));
-		
-		
+		// 주문 관리 탭 선택.
 		group.getToggles().get(0).setSelected(true);
-		
-		// TODO 버튼 자체로 동작시킬 수 있느닞....
-//		btnOrderManagement.
+		// 주문 관리 페이지 호출.
 		callOrderManagementPage(null);
 	}
 	

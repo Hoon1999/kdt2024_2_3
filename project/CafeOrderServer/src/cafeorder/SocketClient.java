@@ -80,6 +80,10 @@ public class SocketClient {
 							String number1 = jsonObject.getString("number");
 							orderServer.joinMem(number1);
 							break;
+						case "options":
+							int number2 = jsonObject.getInt("number");
+							orderServer.getOptionTypes(this);
+							break;
 					}
 				}
 			}catch(IOException e) {

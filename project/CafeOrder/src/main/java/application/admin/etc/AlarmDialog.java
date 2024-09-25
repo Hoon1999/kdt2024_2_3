@@ -9,15 +9,15 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-public class Dialog {
+public class AlarmDialog {
 	
 	private Stage primaryStage;	
 	public void setPrimaryStage(Stage primaryStage) {
 		this.primaryStage = primaryStage;
 	}	
 	
-	//커스텀 다이얼로그 실행
-	public void makeCustomDialog(String title, String msg) {
+	// 알람 다이얼로그 실행.
+	public void makeAlarmDialog(String title, String msg) {
 		Stage dialog = new Stage(StageStyle.UTILITY);
 		dialog.initModality(Modality.WINDOW_MODAL);
 		dialog.initOwner(primaryStage);
@@ -36,7 +36,9 @@ public class Dialog {
 			dialog.show();
 			
 		} catch (Exception e) {
-			
+			System.out.println("!AlarmDialog : " + e.getMessage());
+			e.printStackTrace();
+			System.out.println("~!AlarmDialog : " + e.getMessage());
 		}
 		
 	}

@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import application.admin.etc.Dialog;
+import application.admin.etc.AlarmDialog;
 import application.admin.login.LoginPageController;
 import application.admin.main.AdminMainPage;
 import application.admin.main.AdminMainPageController;
@@ -43,59 +43,55 @@ public class ChangePasswordPageController {
 				btnCancel = (Button) changePasswordPage.lookup("#btnCancel");
 				bpKeypad = (BorderPane) changePasswordPage.lookup("#bpKeypad");
 			} catch (IOException e) {
-				System.out.println("!(KeypadCont-IOException) :" + e.getMessage());
+				System.out.println("!(ChangePasswordPageCont-IOException) :" + e.getMessage());
 				Logger.getLogger(LoginPageController.class.getName()).log(Level.SEVERE, null, e);
-				System.out.println("~!(KeypadCont-IOException) : " + e.getMessage());
-			} catch (Exception e) {
-				System.out.println("!(KeypadCont-Exception) :" + e.getMessage());
-				Logger.getLogger(LoginPageController.class.getName()).log(Level.SEVERE, null, e);
-				System.out.println("~!(KeypadCont-Exception) : " + e.getMessage());
+				System.out.println("~!(ChangePasswordPageCont-IOException) : " + e.getMessage());
 			}
 		}
 		
 		// 액션 설정.KeypadController
-		pwfCurrentPassword.setOnTouchPressed(e -> bpKeypad.setCenter(AdminMainPageController.getMainPageController().getKeypadController().getKeypad(pwfCurrentPassword)));
-		pwfCurrentPassword.setOnMousePressed(e -> bpKeypad.setCenter(AdminMainPageController.getMainPageController().getKeypadController().getKeypad(pwfCurrentPassword)));
+		pwfCurrentPassword.setOnTouchPressed(e -> bpKeypad.setCenter(AdminMainPageController.getMainPageController().getKeypadController().getKeypad(pwfCurrentPassword, false)));
+		pwfCurrentPassword.setOnMousePressed(e -> bpKeypad.setCenter(AdminMainPageController.getMainPageController().getKeypadController().getKeypad(pwfCurrentPassword, false)));
 		
-		pwfChangePassword.setOnTouchPressed(e -> bpKeypad.setCenter(AdminMainPageController.getMainPageController().getKeypadController().getKeypad(pwfChangePassword)));
-		pwfChangePassword.setOnMousePressed(e -> bpKeypad.setCenter(AdminMainPageController.getMainPageController().getKeypadController().getKeypad(pwfChangePassword)));
+		pwfChangePassword.setOnTouchPressed(e -> bpKeypad.setCenter(AdminMainPageController.getMainPageController().getKeypadController().getKeypad(pwfChangePassword, false)));
+		pwfChangePassword.setOnMousePressed(e -> bpKeypad.setCenter(AdminMainPageController.getMainPageController().getKeypadController().getKeypad(pwfChangePassword, false)));
 		
-		pwfCheckPassword.setOnTouchPressed(e -> bpKeypad.setCenter(AdminMainPageController.getMainPageController().getKeypadController().getKeypad(pwfCheckPassword)));
-		pwfCheckPassword.setOnMousePressed(e -> bpKeypad.setCenter(AdminMainPageController.getMainPageController().getKeypadController().getKeypad(pwfCheckPassword)));
+		pwfCheckPassword.setOnTouchPressed(e -> bpKeypad.setCenter(AdminMainPageController.getMainPageController().getKeypadController().getKeypad(pwfCheckPassword, false)));
+		pwfCheckPassword.setOnMousePressed(e -> bpKeypad.setCenter(AdminMainPageController.getMainPageController().getKeypadController().getKeypad(pwfCheckPassword, false)));
 		
 		btnChange.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
-
-				System.out.println("---------------------------------------");
-				System.out.println("현재 : " + pwfCurrentPassword.getText());
-				System.out.println("바꿀 : " + pwfChangePassword.getText());
-				System.out.println("확인 : " + pwfCheckPassword.getText());
+				
+//				System.out.println("---------------------------------------");
+//				System.out.println("현재 : " + pwfCurrentPassword.getText());
+//				System.out.println("바꿀 : " + pwfChangePassword.getText());
+//				System.out.println("확인 : " + pwfCheckPassword.getText());
 				
 				if (pwfCurrentPassword.getText().equals(LoginPageController.getPassword())) {
 					if (!pwfChangePassword.getText().isEmpty() && pwfChangePassword.getText().equals(pwfCheckPassword.getText())) {
 						LoginPageController.setPassword(pwfChangePassword.getText());
 						System.out.println("비밀번호 변경 : " + pwfChangePassword.getText());
 
-						Dialog dialog = new Dialog();
+						AlarmDialog dialog = new AlarmDialog();
 						dialog.setPrimaryStage(AdminMainPage.getPrimaryStage());
-						dialog.makeCustomDialog("비밀번호 변경 성공", "비밀번호 변경 : " + pwfChangePassword.getText());
+						dialog.makeAlarmDialog("비밀번호 변경 성공", "비밀번호 변경 : " + pwfChangePassword.getText());
 					}
 					else {
 						// 비밀번호 확인 불일치.
 						System.out.println("비밀번호 확인 불일치. (또는 입력 없음)");
 
-						Dialog dialog = new Dialog();
+						AlarmDialog dialog = new AlarmDialog();
 						dialog.setPrimaryStage(AdminMainPage.getPrimaryStage());
-						dialog.makeCustomDialog("비밀번호 변경 실패", "비밀번호 확인 불일치(또는 입력 없음).");
+						dialog.makeAlarmDialog("비밀번호 변경 실패", "비밀번호 확인 불일치(또는 입력 없음).");
 					}
 				}
 				else {
 					// 현재 비밀번호 불일치.
 					System.out.println("현재 비밀번호 불일치.");
-					Dialog dialog = new Dialog();
+					AlarmDialog dialog = new AlarmDialog();
 					dialog.setPrimaryStage(AdminMainPage.getPrimaryStage());
-					dialog.makeCustomDialog("비밀번호 변경 실패", "현재 비밀번호 불일치.");
+					dialog.makeAlarmDialog("비밀번호 변경 실패", "현재 비밀번호 불일치.");
 				}
 				
 				goSettingDefaultPage();

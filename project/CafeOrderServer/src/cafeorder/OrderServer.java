@@ -99,6 +99,12 @@ public class OrderServer {
 	public void addCategory(String category) {
 		CDBC.addCategory(category);
 	}
+	public void getOptionTypes(SocketClient sender) {
+		JSONObject root = CDBC.getOptionTypes();
+		//JSONObject root = new JSONObject();
+		String json = root.toString();
+		sender.send(json);
+	}
 	
 	//서버 메인 함수
 	public static void main(String[] args) {
